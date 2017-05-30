@@ -175,7 +175,7 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
 
     private class FixedViewHolder extends ViewHolder {
 
-        protected FixedViewHolder(View itemView) {
+        FixedViewHolder(View itemView) {
             super(itemView);
         }
 
