@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="1dp"
-    app:arl_widthRatio="16"
-    app:arl_heightRatio="9">
+    app:arl_widthRatio="4"
+    app:arl_heightRatio="1">
 
     <ImageView
         android:id="@+id/img_thumb"
