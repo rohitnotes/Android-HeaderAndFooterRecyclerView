@@ -213,7 +213,7 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
 
         };
 
-        public void setAdapter(Adapter<ViewHolder> adapter) {
+        public void setAdapter(Adapter adapter) {
             if (this.adapter == adapter) {
                 return;
             }
