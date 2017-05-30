@@ -4,7 +4,6 @@ import com.takwolf.android.hfrecyclerviewdemo.util.RandomUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
 public final class ApiClient {

@@ -164,13 +164,13 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
     }
 
     @Override
-    public void setAdapter(Adapter adapter) {
-        adapterProxy.setAdapter(adapter);
+    public Adapter getAdapter() {
+        return adapterProxy.getAdapter();
     }
 
     @Override
-    public Adapter getAdapter() {
-        return adapterProxy.getAdapter();
+    public void setAdapter(Adapter adapter) {
+        adapterProxy.setAdapter(adapter);
     }
 
     private class FixedViewHolder extends ViewHolder {
@@ -182,8 +182,6 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
     }
 
     private class AdapterProxy extends Adapter {
-
-        private Adapter adapter;
 
         private final AdapterDataObserver adapterDataObserver = new AdapterDataObserver() {
 
@@ -213,6 +211,12 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
 
         };
 
+        private Adapter adapter;
+
+        public Adapter getAdapter() {
+            return adapter;
+        }
+
         public void setAdapter(Adapter adapter) {
             if (this.adapter == adapter) {
                 return;
@@ -227,10 +231,6 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
                 this.adapter.onAttachedToRecyclerView(HeaderAndFooterRecyclerView.this);
                 notifyItemRangeChanged(1, adapter.getItemCount());
             }
-        }
-
-        public Adapter getAdapter() {
-            return adapter;
         }
 
         @Override

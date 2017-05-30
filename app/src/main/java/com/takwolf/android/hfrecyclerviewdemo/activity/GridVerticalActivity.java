@@ -10,8 +10,6 @@ import com.takwolf.android.hfrecyclerviewdemo.R;
 import com.takwolf.android.hfrecyclerviewdemo.adapter.GridVerticalAdapter;
 import com.takwolf.android.hfrecyclerviewdemo.listener.NavigationFinishClickListener;
 import com.takwolf.android.hfrecyclerviewdemo.model.ApiClient;
-import com.takwolf.android.hfrecyclerviewdemo.viewholder.HorizontalFooter;
-import com.takwolf.android.hfrecyclerviewdemo.viewholder.HorizontalHeader;
 import com.takwolf.android.hfrecyclerviewdemo.viewholder.VerticalFooter;
 import com.takwolf.android.hfrecyclerviewdemo.viewholder.VerticalHeader;
 
