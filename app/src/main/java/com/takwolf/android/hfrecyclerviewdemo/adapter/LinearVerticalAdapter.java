@@ -11,12 +11,15 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.takwolf.android.hfrecyclerviewdemo.R;
 import com.takwolf.android.hfrecyclerviewdemo.model.Illust;
+import com.takwolf.android.hfrecyclerviewdemo.util.RandomUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.OnLongClick;
 
 public class LinearVerticalAdapter extends RecyclerView.Adapter<LinearVerticalAdapter.ViewHolder> {
 
@@ -54,13 +57,32 @@ public class LinearVerticalAdapter extends RecyclerView.Adapter<LinearVerticalAd
         @BindView(R.id.img_thumb)
         protected ImageView imgThumb;
 
+        private Illust illust;
+
         protected ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
         protected void update(@NonNull Illust illust) {
+            this.illust = illust;
             Glide.with(activity).load(illust.getImage()).placeholder(R.drawable.image_placeholder).into(imgThumb);
+        }
+
+        @OnClick(R.id.btn_item)
+        protected void onBtnItemClick() {
+            int position = illustList.indexOf(illust);
+            int newPosition = Math.abs(RandomUtils.random.nextInt()) % illustList.size();
+            illustList.add(newPosition, illustList.remove(position));
+            notifyItemMoved(position, newPosition);
+        }
+
+        @OnLongClick(R.id.btn_item)
+        protected boolean onBtnItemLongClick() {
+            int position = illustList.indexOf(illust);
+            illustList.remove(position);
+            notifyItemRemoved(position);
+            return true;
         }
 
     }

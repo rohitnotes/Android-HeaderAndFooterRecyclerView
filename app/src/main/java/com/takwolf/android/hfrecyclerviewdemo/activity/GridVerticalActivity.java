@@ -10,6 +10,10 @@ import com.takwolf.android.hfrecyclerviewdemo.R;
 import com.takwolf.android.hfrecyclerviewdemo.adapter.GridVerticalAdapter;
 import com.takwolf.android.hfrecyclerviewdemo.listener.NavigationFinishClickListener;
 import com.takwolf.android.hfrecyclerviewdemo.model.ApiClient;
+import com.takwolf.android.hfrecyclerviewdemo.viewholder.HorizontalFooter;
+import com.takwolf.android.hfrecyclerviewdemo.viewholder.HorizontalHeader;
+import com.takwolf.android.hfrecyclerviewdemo.viewholder.VerticalFooter;
+import com.takwolf.android.hfrecyclerviewdemo.viewholder.VerticalHeader;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,6 +39,11 @@ public class GridVerticalActivity extends AppCompatActivity {
         GridVerticalAdapter adapter = new GridVerticalAdapter(this);
         adapter.getIllustList().addAll(ApiClient.buildIllustList(35));
         recyclerView.setAdapter(adapter);
+
+        new VerticalHeader(this, recyclerView);
+        new VerticalHeader(this, recyclerView);
+        new VerticalFooter(this, recyclerView);
+        new VerticalFooter(this, recyclerView);
     }
 
 }
