@@ -186,6 +186,11 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
         private final AdapterDataObserver adapterDataObserver = new AdapterDataObserver() {
 
             @Override
+            public void onChanged() {
+                notifyDataSetChanged();
+            }
+
+            @Override
             public void onItemRangeChanged(int positionStart, int itemCount) {
                 notifyItemRangeChanged(positionStart + 1, itemCount);
             }
@@ -229,7 +234,7 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
             if (this.adapter != null) {
                 this.adapter.registerAdapterDataObserver(adapterDataObserver);
                 this.adapter.onAttachedToRecyclerView(HeaderAndFooterRecyclerView.this);
-                notifyItemRangeChanged(1, adapter.getItemCount());
+                notifyDataSetChanged();
             }
         }
 
