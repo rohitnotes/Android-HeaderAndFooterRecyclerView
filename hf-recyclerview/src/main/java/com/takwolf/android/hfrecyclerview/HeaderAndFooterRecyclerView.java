@@ -173,7 +173,7 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
         adapterProxy.setAdapter(adapter);
     }
 
-    private class FixedViewHolder extends ViewHolder {
+    private static class FixedViewHolder extends ViewHolder {
 
         FixedViewHolder(View itemView) {
             super(itemView);
