@@ -10,7 +10,7 @@ ext {
     groupId = 'com.takwolf.android'
     artifactId = 'hf-recyclerview'
 
-    libraryVersion = '0.0.1'
+    libraryVersion = '0.0.2'
     libraryName = 'Android - HeaderAndFooterRecyclerView'
     libraryDescription = 'Let RecyclerView support add HeaderView and FooterView.'
 
