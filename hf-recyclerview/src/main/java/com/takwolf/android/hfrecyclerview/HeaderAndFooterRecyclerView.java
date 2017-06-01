@@ -12,12 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import java.util.List;
-
 public class HeaderAndFooterRecyclerView extends RecyclerView {
-
-    public static final int TYPE_HEADER = -1;
-    public static final int TYPE_FOOTER = -2;
 
     private LinearLayout headerParent;
     private LinearLayout footerParent;
@@ -43,7 +38,7 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
         headerParent = new LinearLayout(context);
         footerParent = new LinearLayout(context);
 
-        adapterProxy = new AdapterProxy();
+        adapterProxy = new AdapterProxy(this);
         super.setAdapter(adapterProxy);
     }
 
@@ -58,18 +53,22 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
 
     public void addHeaderView(@NonNull View view) {
         headerParent.addView(view);
+        adapterProxy.notifyDataSetChanged();
     }
 
     public void addHeaderView(@NonNull View view, int index) {
         headerParent.addView(view, index);
+        adapterProxy.notifyDataSetChanged();
     }
 
     public void removeHeaderView(@NonNull View view) {
         headerParent.removeView(view);
+        adapterProxy.notifyDataSetChanged();
     }
 
     public void removeHeaderView(int index) {
         headerParent.removeViewAt(index);
+        adapterProxy.notifyDataSetChanged();
     }
 
     @NonNull
@@ -80,21 +79,25 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
     public int getFooterViewCount() {
         return footerParent.getChildCount();
     }
-    
+
     public void addFooterView(@NonNull View view) {
         footerParent.addView(view);
+        adapterProxy.notifyDataSetChanged();
     }
 
     public void addFooterView(@NonNull View view, int index) {
         footerParent.addView(view, index);
+        adapterProxy.notifyDataSetChanged();
     }
 
     public void removeFooterView(@NonNull View view) {
         footerParent.removeView(view);
+        adapterProxy.notifyDataSetChanged();
     }
 
     public void removeFooterView(int index) {
         footerParent.removeViewAt(index);
+        adapterProxy.notifyDataSetChanged();
     }
 
     private void setHeaderOrFooterOrientation(@NonNull LinearLayout parent, int orientation, boolean isStaggeredGridLayout) {
@@ -145,20 +148,8 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
             }
             // SpanSizeLookup
             if (layoutManager instanceof GridLayoutManager) {
-                final GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
-                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-
-                    @Override
-                    public int getSpanSize(int position) {
-                        int viewType = adapterProxy.getItemViewType(position);
-                        if (viewType == TYPE_HEADER || viewType == TYPE_FOOTER) {
-                            return gridLayoutManager.getSpanCount();
-                        } else {
-                            return 1;
-                        }
-                    }
-
-                });
+                GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
+                gridLayoutManager.setSpanSizeLookup(new FixedViewSpanSizeLookup(adapterProxy, gridLayoutManager));
             }
         }
     }
@@ -170,191 +161,12 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
 
     @Override
     public void setAdapter(Adapter adapter) {
+        if (adapter != null && adapter.hasStableIds() != adapterProxy.hasStableIds()) {
+            super.setAdapter(null);
+            adapterProxy.setHasStableIds(adapter.hasStableIds());
+            super.setAdapter(adapterProxy);
+        }
         adapterProxy.setAdapter(adapter);
-    }
-
-    private static class FixedViewHolder extends ViewHolder {
-
-        FixedViewHolder(View itemView) {
-            super(itemView);
-        }
-
-    }
-
-    private class AdapterProxy extends Adapter {
-
-        private final AdapterDataObserver adapterDataObserver = new AdapterDataObserver() {
-
-            @Override
-            public void onChanged() {
-                notifyDataSetChanged();
-            }
-
-            @Override
-            public void onItemRangeChanged(int positionStart, int itemCount) {
-                notifyItemRangeChanged(positionStart + 1, itemCount);
-            }
-
-            @Override
-            public void onItemRangeInserted(int positionStart, int itemCount) {
-                notifyItemRangeInserted(positionStart + 1, itemCount);
-            }
-
-            @Override
-            public void onItemRangeRemoved(int positionStart, int itemCount) {
-                notifyItemRangeRemoved(positionStart + 1, itemCount);
-            }
-
-            @Override
-            public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount) {
-                if (itemCount == 1) {
-                    notifyItemMoved(fromPosition + 1, toPosition + 1);
-                } else {
-                    notifyDataSetChanged();
-                }
-            }
-
-        };
-
-        private Adapter adapter;
-
-        public Adapter getAdapter() {
-            return adapter;
-        }
-
-        public void setAdapter(Adapter adapter) {
-            if (this.adapter == adapter) {
-                return;
-            }
-            if (this.adapter != null) {
-                this.adapter.unregisterAdapterDataObserver(adapterDataObserver);
-                this.adapter.onDetachedFromRecyclerView(HeaderAndFooterRecyclerView.this);
-            }
-            this.adapter = adapter;
-            if (this.adapter != null) {
-                this.adapter.registerAdapterDataObserver(adapterDataObserver);
-                this.adapter.onAttachedToRecyclerView(HeaderAndFooterRecyclerView.this);
-                notifyDataSetChanged();
-            }
-        }
-
-        @Override
-        public int getItemCount() {
-            return (adapter == null ? 0 : adapter.getItemCount()) + 2;
-        }
-
-        @Override
-        public int getItemViewType(int position) {
-            if (position == 0) {
-                return TYPE_HEADER;
-            } else if (position == getItemCount() - 1) {
-                return TYPE_FOOTER;
-            } else {
-                if (adapter != null) {
-                    int viewType = adapter.getItemViewType(position - 1);
-                    if (viewType == TYPE_HEADER) {
-                        throw new RuntimeException(TYPE_HEADER + " is used for type header, please use other value.");
-                    } else if (viewType == TYPE_FOOTER) {
-                        throw new RuntimeException(TYPE_FOOTER + " is used for type footer, please use other value.");
-                    } else {
-                        return viewType;
-                    }
-                } else {
-                    return 0;
-                }
-            }
-        }
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            switch (viewType) {
-                case TYPE_HEADER:
-                    return new FixedViewHolder(headerParent);
-                case TYPE_FOOTER:
-                    return new FixedViewHolder(footerParent);
-                default:
-                    if (adapter != null) {
-                        return adapter.onCreateViewHolder(parent, viewType);
-                    } else {
-                        return null;
-                    }
-            }
-        }
-
-        @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-            if (adapter != null && position != 0 && position != getItemCount() - 1) {
-                adapter.onBindViewHolder(holder, position - 1);
-            }
-        }
-
-        @Override
-        public void onBindViewHolder(ViewHolder holder, int position, List payloads) {
-            if (adapter != null && position != 0 && position != getItemCount() - 1) {
-                adapter.onBindViewHolder(holder, position - 1, payloads);
-            }
-        }
-
-        @Override
-        public void setHasStableIds(boolean hasStableIds) {
-            if (adapter != null) {
-                adapter.setHasStableIds(hasStableIds);
-            }
-        }
-
-        @Override
-        public long getItemId(int position) {
-            if (adapter != null && position != 0 && position != getItemCount() - 1) {
-                return adapter.getItemId(position - 1);
-            } else {
-                return NO_ID;
-            }
-        }
-
-        @Override
-        public void onViewRecycled(ViewHolder holder) {
-            if (adapter != null && holder.getItemViewType() != TYPE_HEADER && holder.getItemViewType() != TYPE_FOOTER) {
-                adapter.onViewRecycled(holder);
-            }
-        }
-
-        @Override
-        public boolean onFailedToRecycleView(ViewHolder holder) {
-            if (adapter != null && holder.getItemViewType() != TYPE_HEADER && holder.getItemViewType() != TYPE_FOOTER) {
-                return adapter.onFailedToRecycleView(holder);
-            } else {
-                return false;
-            }
-        }
-
-        @Override
-        public void onViewAttachedToWindow(ViewHolder holder) {
-            if (adapter != null && holder.getItemViewType() != TYPE_HEADER && holder.getItemViewType() != TYPE_FOOTER) {
-                adapter.onViewAttachedToWindow(holder);
-            }
-        }
-
-        @Override
-        public void onViewDetachedFromWindow(ViewHolder holder) {
-            if (adapter != null && holder.getItemViewType() != TYPE_HEADER && holder.getItemViewType() != TYPE_FOOTER) {
-                adapter.onViewDetachedFromWindow(holder);
-            }
-        }
-
-        @Override
-        public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-            if (adapter != null) {
-                adapter.onAttachedToRecyclerView(recyclerView);
-            }
-        }
-
-        @Override
-        public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
-            if (adapter != null) {
-                adapter.onDetachedFromRecyclerView(recyclerView);
-            }
-        }
-
     }
 
 }
