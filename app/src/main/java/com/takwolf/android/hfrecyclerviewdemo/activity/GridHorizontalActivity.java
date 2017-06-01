@@ -28,7 +28,7 @@ public class GridHorizontalActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recycler_view);
+        setContentView(R.layout.activity_recycler_horizontal);
         ButterKnife.bind(this);
 
         toolbar.setTitle("Grid Horizontal");
