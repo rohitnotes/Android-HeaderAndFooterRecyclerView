@@ -52,6 +52,10 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
         return headerParent;
     }
 
+    public int getHeaderViewCount() {
+        return headerParent.getChildCount();
+    }
+
     public void addHeaderView(@NonNull View view) {
         headerParent.addView(view);
     }
@@ -68,15 +72,15 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
         headerParent.removeViewAt(index);
     }
 
-    public int getHeaderViewCount() {
-        return headerParent.getChildCount();
-    }
-
     @NonNull
     public LinearLayout getFooterParent() {
         return footerParent;
     }
 
+    public int getFooterViewCount() {
+        return footerParent.getChildCount();
+    }
+    
     public void addFooterView(@NonNull View view) {
         footerParent.addView(view);
     }
@@ -91,10 +95,6 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
 
     public void removeFooterView(int index) {
         footerParent.removeViewAt(index);
-    }
-
-    public int getFooterViewCount() {
-        return footerParent.getChildCount();
     }
 
     private void setHeaderOrFooterOrientation(@NonNull LinearLayout parent, int orientation, boolean isStaggeredGridLayout) {
