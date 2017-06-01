@@ -12,8 +12,7 @@ import com.takwolf.android.hfrecyclerviewdemo.adapter.LinearVerticalAdapter;
 import com.takwolf.android.hfrecyclerviewdemo.listener.NavigationFinishClickListener;
 import com.takwolf.android.hfrecyclerviewdemo.model.ApiClient;
 import com.takwolf.android.hfrecyclerviewdemo.util.HandlerUtils;
-import com.takwolf.android.hfrecyclerviewdemo.viewholder.VerticalFooter;
-import com.takwolf.android.hfrecyclerviewdemo.viewholder.VerticalHeader;
+import com.takwolf.android.hfrecyclerviewdemo.viewholder.ControllerViewHolder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,15 +39,12 @@ public class LinearVerticalActivity extends AppCompatActivity implements SwipeRe
         toolbar.setTitle("Linear Vertical");
         toolbar.setNavigationOnClickListener(new NavigationFinishClickListener(this));
 
+        new ControllerViewHolder(this, recyclerView, ControllerViewHolder.ORIENTATION_VERTICAL);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new LinearVerticalAdapter(this);
         adapter.getIllustList().addAll(ApiClient.buildIllustList(35));
         recyclerView.setAdapter(adapter);
-
-        new VerticalHeader(this, recyclerView);
-        new VerticalHeader(this, recyclerView);
-        new VerticalFooter(this, recyclerView);
-        new VerticalFooter(this, recyclerView);
 
         refreshLayout.setOnRefreshListener(this);
     }

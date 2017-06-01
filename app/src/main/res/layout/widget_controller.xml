@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_controller"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="4dp">
+
+    <Button
+        android:id="@+id/btn_add_header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_margin="4dp"
+        android:text="Add Header"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_remove_header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_margin="4dp"
+        android:text="Aemove Header"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_add_footer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_margin="4dp"
+        android:text="Add Footer"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/btn_remove_footer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_margin="4dp"
+        android:text="Remove Footer"
+        android:textAllCaps="false" />
+
+</LinearLayout>

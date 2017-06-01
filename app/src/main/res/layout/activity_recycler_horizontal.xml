@@ -16,6 +16,8 @@
         app:title="@string/app_name"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
+    <include layout="@layout/widget_controller" />
+
     <com.takwolf.android.hfrecyclerview.HeaderAndFooterRecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"

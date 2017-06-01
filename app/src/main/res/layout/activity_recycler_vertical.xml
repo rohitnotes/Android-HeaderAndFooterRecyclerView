@@ -16,6 +16,8 @@
         app:title="@string/app_name"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
+    <include layout="@layout/widget_controller" />
+
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"

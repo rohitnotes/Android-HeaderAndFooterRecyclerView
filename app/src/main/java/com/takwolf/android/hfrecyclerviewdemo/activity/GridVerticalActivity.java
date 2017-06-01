@@ -12,8 +12,7 @@ import com.takwolf.android.hfrecyclerviewdemo.adapter.GridVerticalAdapter;
 import com.takwolf.android.hfrecyclerviewdemo.listener.NavigationFinishClickListener;
 import com.takwolf.android.hfrecyclerviewdemo.model.ApiClient;
 import com.takwolf.android.hfrecyclerviewdemo.util.HandlerUtils;
-import com.takwolf.android.hfrecyclerviewdemo.viewholder.VerticalFooter;
-import com.takwolf.android.hfrecyclerviewdemo.viewholder.VerticalHeader;
+import com.takwolf.android.hfrecyclerviewdemo.viewholder.ControllerViewHolder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,15 +39,12 @@ public class GridVerticalActivity extends AppCompatActivity implements SwipeRefr
         toolbar.setTitle("Grid Vertical");
         toolbar.setNavigationOnClickListener(new NavigationFinishClickListener(this));
 
+        new ControllerViewHolder(this, recyclerView, ControllerViewHolder.ORIENTATION_VERTICAL);
+
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         adapter = new GridVerticalAdapter(this);
         adapter.getIllustList().addAll(ApiClient.buildIllustList(35));
         recyclerView.setAdapter(adapter);
-
-        new VerticalHeader(this, recyclerView);
-        new VerticalHeader(this, recyclerView);
-        new VerticalFooter(this, recyclerView);
-        new VerticalFooter(this, recyclerView);
 
         refreshLayout.setOnRefreshListener(this);
     }
