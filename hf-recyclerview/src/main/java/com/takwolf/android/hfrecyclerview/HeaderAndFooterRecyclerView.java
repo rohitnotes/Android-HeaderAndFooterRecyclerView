@@ -53,22 +53,22 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
 
     public void addHeaderView(@NonNull View view) {
         headerParent.addView(view);
-        adapterProxy.notifyDataSetChanged();
+        adapterProxy.notifyHeaderInserted();
     }
 
     public void addHeaderView(@NonNull View view, int index) {
         headerParent.addView(view, index);
-        adapterProxy.notifyDataSetChanged();
+        adapterProxy.notifyHeaderInserted();
     }
 
     public void removeHeaderView(@NonNull View view) {
         headerParent.removeView(view);
-        adapterProxy.notifyDataSetChanged();
+        adapterProxy.notifyHeaderRemoved();
     }
 
     public void removeHeaderView(int index) {
         headerParent.removeViewAt(index);
-        adapterProxy.notifyDataSetChanged();
+        adapterProxy.notifyHeaderRemoved();
     }
 
     @NonNull
@@ -82,22 +82,22 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
 
     public void addFooterView(@NonNull View view) {
         footerParent.addView(view);
-        adapterProxy.notifyDataSetChanged();
+        adapterProxy.notifyFooterInserted();
     }
 
     public void addFooterView(@NonNull View view, int index) {
         footerParent.addView(view, index);
-        adapterProxy.notifyDataSetChanged();
+        adapterProxy.notifyFooterInserted();
     }
 
     public void removeFooterView(@NonNull View view) {
         footerParent.removeView(view);
-        adapterProxy.notifyDataSetChanged();
+        adapterProxy.notifyFooterRemoved();
     }
 
     public void removeFooterView(int index) {
         footerParent.removeViewAt(index);
-        adapterProxy.notifyDataSetChanged();
+        adapterProxy.notifyFooterRemoved();
     }
 
     private void setHeaderOrFooterOrientation(@NonNull LinearLayout parent, int orientation, boolean isStaggeredGridLayout) {

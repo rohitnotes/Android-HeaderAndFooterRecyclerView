@@ -73,6 +73,30 @@ class AdapterProxy extends RecyclerView.Adapter {
         }
     }
 
+    public void notifyHeaderInserted() {
+        if (recyclerView.getHeaderViewCount() == 1) {
+            notifyItemInserted(0);
+        }
+    }
+
+    public void notifyHeaderRemoved() {
+        if (recyclerView.getHeaderViewCount() == 0) {
+            notifyItemRemoved(0);
+        }
+    }
+
+    public void notifyFooterInserted() {
+        if (recyclerView.getFooterViewCount() == 1) {
+            notifyItemInserted(getItemCount() - 1);
+        }
+    }
+
+    public void notifyFooterRemoved() {
+        if (recyclerView.getFooterViewCount() == 0) {
+            notifyItemRemoved(getItemCount());
+        }
+    }
+
     private boolean isShowHeaderViewHolder() {
         return recyclerView.getHeaderViewCount() > 0;
     }
