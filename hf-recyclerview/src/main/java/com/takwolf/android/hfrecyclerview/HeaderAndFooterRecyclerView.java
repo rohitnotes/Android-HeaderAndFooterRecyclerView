@@ -199,6 +199,11 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
         super.setLayoutManager(layoutManager);
     }
 
+    @NonNull
+    public ProxyAdapter getProxyAdapter() {
+        return proxyAdapter;
+    }
+
     @Override
     public Adapter getAdapter() {
         return proxyAdapter.getAdapter();

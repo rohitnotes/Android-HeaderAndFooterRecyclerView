@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-class ProxyAdapter extends RecyclerView.Adapter {
+public class ProxyAdapter extends RecyclerView.Adapter {
 
     private final HeaderAndFooterRecyclerView recyclerView;
 
@@ -49,11 +49,11 @@ class ProxyAdapter extends RecyclerView.Adapter {
         this.recyclerView = recyclerView;
     }
 
-    public RecyclerView.Adapter getAdapter() {
+    RecyclerView.Adapter getAdapter() {
         return adapter;
     }
 
-    public void setAdapter(RecyclerView.Adapter adapter) {
+    void setAdapter(RecyclerView.Adapter adapter) {
         if (this.adapter == adapter) {
             return;
         }
@@ -93,31 +93,31 @@ class ProxyAdapter extends RecyclerView.Adapter {
         }
     }
 
-    private boolean isShowHeaderViewHolder() {
+    public boolean isShowHeaderViewHolder() {
         return recyclerView.getHeaderViewCount() > 0;
     }
 
-    private boolean isShowFooterViewHolder() {
+    public boolean isShowFooterViewHolder() {
         return recyclerView.getFooterViewCount() > 0;
     }
 
-    private boolean isHeaderViewHolderPosition(int position) {
+    public boolean isHeaderViewHolderPosition(int position) {
         return position == 0 && isShowHeaderViewHolder();
     }
 
-    private boolean isFooterViewHolderPosition(int position) {
+    public boolean isFooterViewHolderPosition(int position) {
         return position == getItemCount() - 1 && isShowFooterViewHolder();
     }
 
-    private int getHeaderViewHolderCount() {
+    public int getHeaderViewHolderCount() {
         return isShowHeaderViewHolder() ? 1 : 0;
     }
 
-    private int getFooterViewHolderCount() {
+    public int getFooterViewHolderCount() {
         return isShowFooterViewHolder() ? 1 : 0;
     }
 
-    private int getPositionOffset() {
+    public int getPositionOffset() {
         return getHeaderViewHolderCount();
     }
 
