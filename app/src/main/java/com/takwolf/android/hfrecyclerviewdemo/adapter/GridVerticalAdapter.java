@@ -23,6 +23,9 @@ import butterknife.OnLongClick;
 
 public class GridVerticalAdapter extends RecyclerView.Adapter<GridVerticalAdapter.ViewHolder> {
 
+    public static final int TYPE_NORMAL = 0;
+    public static final int TYPE_FULL_SPAN = 1;
+
     private final Activity activity;
     private final LayoutInflater inflater;
     private final List<Illust> illustList = new ArrayList<>();
@@ -40,6 +43,15 @@ public class GridVerticalAdapter extends RecyclerView.Adapter<GridVerticalAdapte
     @Override
     public int getItemCount() {
         return illustList.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position % 11 == 0) {
+            return TYPE_FULL_SPAN;
+        } else {
+            return TYPE_NORMAL;
+        }
     }
 
     @Override

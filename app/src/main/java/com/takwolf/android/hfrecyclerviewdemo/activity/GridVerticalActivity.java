@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import com.takwolf.android.hfrecyclerview.HeaderAndFooterRecyclerView;
 import com.takwolf.android.hfrecyclerviewdemo.R;
 import com.takwolf.android.hfrecyclerviewdemo.adapter.GridVerticalAdapter;
+import com.takwolf.android.hfrecyclerviewdemo.listener.CustomSpanSizeLookup;
 import com.takwolf.android.hfrecyclerviewdemo.listener.NavigationFinishClickListener;
 import com.takwolf.android.hfrecyclerviewdemo.model.ApiClient;
 import com.takwolf.android.hfrecyclerviewdemo.util.HandlerUtils;
@@ -41,7 +42,9 @@ public class GridVerticalActivity extends AppCompatActivity implements SwipeRefr
 
         new ControllerViewHolder(this, recyclerView, ControllerViewHolder.ORIENTATION_VERTICAL);
 
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
+        layoutManager.setSpanSizeLookup(new CustomSpanSizeLookup(layoutManager, recyclerView.getProxyAdapter()));
+        recyclerView.setLayoutManager(layoutManager);
         adapter = new GridVerticalAdapter(this);
         adapter.getIllustList().addAll(ApiClient.buildIllustList(35));
         recyclerView.setAdapter(adapter);
