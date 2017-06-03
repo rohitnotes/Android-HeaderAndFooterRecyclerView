@@ -3,7 +3,7 @@ package com.takwolf.android.hfrecyclerview;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 
-class FixedViewSpanSizeLookup extends GridLayoutManager.SpanSizeLookup {
+final class FixedViewSpanSizeLookup extends GridLayoutManager.SpanSizeLookup {
 
     private AdapterProxy adapterProxy;
     private GridLayoutManager gridLayoutManager;
