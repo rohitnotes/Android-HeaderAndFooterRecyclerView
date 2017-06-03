@@ -16,7 +16,7 @@ final class FixedViewSpanSizeLookup extends GridLayoutManager.SpanSizeLookup {
     @Override
     public int getSpanSize(int position) {
         int viewType = adapterProxy.getItemViewType(position);
-        if (viewType == AdapterProxy.TYPE_HEADER || viewType == AdapterProxy.TYPE_FOOTER) {
+        if (viewType == FixedViewHolder.TYPE_HEADER || viewType == FixedViewHolder.TYPE_FOOTER) {
             return gridLayoutManager.getSpanCount();
         } else {
             return 1;

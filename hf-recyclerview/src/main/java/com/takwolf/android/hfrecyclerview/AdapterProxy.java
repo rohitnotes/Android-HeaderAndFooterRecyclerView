@@ -2,15 +2,11 @@ package com.takwolf.android.hfrecyclerview;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.List;
 
 class AdapterProxy extends RecyclerView.Adapter {
-
-    static final int TYPE_HEADER = -1;
-    static final int TYPE_FOOTER = -2;
 
     private final HeaderAndFooterRecyclerView recyclerView;
 
@@ -133,16 +129,16 @@ class AdapterProxy extends RecyclerView.Adapter {
     @Override
     public int getItemViewType(int position) {
         if (isHeaderViewHolderPosition(position)) {
-            return TYPE_HEADER;
+            return FixedViewHolder.TYPE_HEADER;
         } else if (isFooterViewHolderPosition(position)) {
-            return TYPE_FOOTER;
+            return FixedViewHolder.TYPE_FOOTER;
         } else {
             if (adapter != null) {
                 int viewType = adapter.getItemViewType(position - getPositionOffset());
-                if (viewType == TYPE_HEADER) {
-                    throw new RuntimeException(TYPE_HEADER + " is already used for view type Header, please replace another value.");
-                } else if (viewType == TYPE_FOOTER) {
-                    throw new RuntimeException(TYPE_FOOTER + " is already used for view type Footer, please replace another value.");
+                if (viewType == FixedViewHolder.TYPE_HEADER) {
+                    throw new RuntimeException(FixedViewHolder.TYPE_HEADER + " is already used for view type Header, please replace another value.");
+                } else if (viewType == FixedViewHolder.TYPE_FOOTER) {
+                    throw new RuntimeException(FixedViewHolder.TYPE_FOOTER + " is already used for view type Footer, please replace another value.");
                 } else {
                     return viewType;
                 }
@@ -155,9 +151,9 @@ class AdapterProxy extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
-            case TYPE_HEADER:
+            case FixedViewHolder.TYPE_HEADER:
                 return new FixedViewHolder(recyclerView.getHeaderParent());
-            case TYPE_FOOTER:
+            case FixedViewHolder.TYPE_FOOTER:
                 return new FixedViewHolder(recyclerView.getFooterParent());
             default:
                 if (adapter != null) {
@@ -170,9 +166,9 @@ class AdapterProxy extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder.getItemViewType() == TYPE_HEADER) {
+        if (holder.getItemViewType() == FixedViewHolder.TYPE_HEADER) {
             recyclerView.adjustFixedViewParentLayoutParamsAndOrientation(recyclerView.getHeaderParent());
-        } else if (holder.getItemViewType() == TYPE_FOOTER) {
+        } else if (holder.getItemViewType() == FixedViewHolder.TYPE_FOOTER) {
             recyclerView.adjustFixedViewParentLayoutParamsAndOrientation(recyclerView.getFooterParent());
         } else if (adapter != null) {
             //noinspection unchecked
@@ -182,9 +178,9 @@ class AdapterProxy extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position, List payloads) {
-        if (holder.getItemViewType() == TYPE_HEADER) {
+        if (holder.getItemViewType() == FixedViewHolder.TYPE_HEADER) {
             recyclerView.adjustFixedViewParentLayoutParamsAndOrientation(recyclerView.getHeaderParent());
-        } else if (holder.getItemViewType() == TYPE_FOOTER) {
+        } else if (holder.getItemViewType() == FixedViewHolder.TYPE_FOOTER) {
             recyclerView.adjustFixedViewParentLayoutParamsAndOrientation(recyclerView.getFooterParent());
         } else if (adapter != null) {
             //noinspection unchecked
@@ -203,7 +199,7 @@ class AdapterProxy extends RecyclerView.Adapter {
 
     @Override
     public void onViewRecycled(RecyclerView.ViewHolder holder) {
-        if (adapter != null && holder.getItemViewType() != TYPE_HEADER && holder.getItemViewType() != TYPE_FOOTER) {
+        if (adapter != null && holder.getItemViewType() != FixedViewHolder.TYPE_HEADER && holder.getItemViewType() != FixedViewHolder.TYPE_FOOTER) {
             //noinspection unchecked
             adapter.onViewRecycled(holder);
         }
@@ -212,7 +208,7 @@ class AdapterProxy extends RecyclerView.Adapter {
     @Override
     public boolean onFailedToRecycleView(RecyclerView.ViewHolder holder) {
         //noinspection SimplifiableIfStatement
-        if (adapter != null && holder.getItemViewType() != TYPE_HEADER && holder.getItemViewType() != TYPE_FOOTER) {
+        if (adapter != null && holder.getItemViewType() != FixedViewHolder.TYPE_HEADER && holder.getItemViewType() != FixedViewHolder.TYPE_FOOTER) {
             //noinspection unchecked
             return adapter.onFailedToRecycleView(holder);
         } else {
@@ -222,7 +218,7 @@ class AdapterProxy extends RecyclerView.Adapter {
 
     @Override
     public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
-        if (adapter != null && holder.getItemViewType() != TYPE_HEADER && holder.getItemViewType() != TYPE_FOOTER) {
+        if (adapter != null && holder.getItemViewType() != FixedViewHolder.TYPE_HEADER && holder.getItemViewType() != FixedViewHolder.TYPE_FOOTER) {
             //noinspection unchecked
             adapter.onViewAttachedToWindow(holder);
         }
@@ -230,18 +226,10 @@ class AdapterProxy extends RecyclerView.Adapter {
 
     @Override
     public void onViewDetachedFromWindow(RecyclerView.ViewHolder holder) {
-        if (adapter != null && holder.getItemViewType() != TYPE_HEADER && holder.getItemViewType() != TYPE_FOOTER) {
+        if (adapter != null && holder.getItemViewType() != FixedViewHolder.TYPE_HEADER && holder.getItemViewType() != FixedViewHolder.TYPE_FOOTER) {
             //noinspection unchecked
             adapter.onViewDetachedFromWindow(holder);
         }
-    }
-
-    private static class FixedViewHolder extends RecyclerView.ViewHolder {
-
-        FixedViewHolder(View itemView) {
-            super(itemView);
-        }
-
     }
 
 }
