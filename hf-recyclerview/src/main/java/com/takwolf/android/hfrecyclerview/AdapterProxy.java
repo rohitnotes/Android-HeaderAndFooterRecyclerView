@@ -69,8 +69,8 @@ class AdapterProxy extends RecyclerView.Adapter {
         if (this.adapter != null) {
             this.adapter.registerAdapterDataObserver(adapterDataObserver);
             this.adapter.onAttachedToRecyclerView(recyclerView);
-            notifyDataSetChanged();
         }
+        notifyDataSetChanged();
     }
 
     void notifyHeaderInserted() {
