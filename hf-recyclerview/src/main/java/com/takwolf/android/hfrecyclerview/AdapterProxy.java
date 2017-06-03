@@ -170,7 +170,11 @@ class AdapterProxy extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (adapter != null && !isHeaderViewHolderPosition(position) && !isFooterViewHolderPosition(position)) {
+        if (holder.getItemViewType() == TYPE_HEADER) {
+            recyclerView.adjustFixedViewParentLayoutParamsAndOrientation(recyclerView.getHeaderParent());
+        } else if (holder.getItemViewType() == TYPE_FOOTER) {
+            recyclerView.adjustFixedViewParentLayoutParamsAndOrientation(recyclerView.getFooterParent());
+        } else if (adapter != null) {
             //noinspection unchecked
             adapter.onBindViewHolder(holder, position - getPositionOffset());
         }
@@ -178,7 +182,11 @@ class AdapterProxy extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position, List payloads) {
-        if (adapter != null && !isHeaderViewHolderPosition(position) && !isFooterViewHolderPosition(position)) {
+        if (holder.getItemViewType() == TYPE_HEADER) {
+            recyclerView.adjustFixedViewParentLayoutParamsAndOrientation(recyclerView.getHeaderParent());
+        } else if (holder.getItemViewType() == TYPE_FOOTER) {
+            recyclerView.adjustFixedViewParentLayoutParamsAndOrientation(recyclerView.getFooterParent());
+        } else if (adapter != null) {
             //noinspection unchecked
             adapter.onBindViewHolder(holder, position - getPositionOffset(), payloads);
         }
