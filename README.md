@@ -8,12 +8,17 @@
 
 Let RecyclerView support add HeaderView and FooterView.
 
+一个支持添加 HeaderView 和 FooterView 的 RecyclerView。
+无侵入式，使用方式和原有 RecyclerView 相同，不需要修改业务 Adapter。
+支持 LinearLayoutManager、GridLayoutManager 和 StaggeredGridLayoutManager 三种布局管理器的横向和纵向布局。
+支持动态添加删除 HeaderView 和 FooterView，支持动态切换 LayoutManager。
+
 ## Usage ##
 
 ### Gradle ###
 
 ```
-compile 'com.takwolf.android:hf-recyclerview:0.0.3'
+compile 'com.takwolf.android:hf-recyclerview:0.0.4'
 ```
 
 ### Layout ###
@@ -28,11 +33,13 @@ compile 'com.takwolf.android:hf-recyclerview:0.0.3'
 ### Java ###
 
 ```
-HeaderAndFooterRecyclerView recyclerView = (HeaderAndFooterRecyclerView) findViewById();
-recyclerView.setLayoutManager(......);
-recyclerView.setAdapter(......);
-recyclerView.addHeaderView(......);
-recyclerView.addFooterView(......);
+HeaderAndFooterRecyclerView recyclerView = (HeaderAndFooterRecyclerView) findViewById(R.id.recycler_view);
+
+View headerView = LayoutInflater.from(context).inflate(R.layout.header, recyclerView.getHeaderParent(), false);
+recyclerView.addHeaderView(headerView);
+
+View footerView = LayoutInflater.from(context).inflate(R.layout.footer, recyclerView.getFooterParent(), false);
+recyclerView.addFooterView(footerView);
 ```
 
 ## Author ##
