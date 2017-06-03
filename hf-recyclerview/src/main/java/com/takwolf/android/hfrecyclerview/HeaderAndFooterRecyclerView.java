@@ -16,8 +16,7 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
 
     private LinearLayout headerParent;
     private LinearLayout footerParent;
-
-    private AdapterProxy adapterProxy;
+    private ProxyAdapter proxyAdapter;
 
     public HeaderAndFooterRecyclerView(@NonNull Context context) {
         super(context);
@@ -37,9 +36,8 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
     private void init(@NonNull Context context) {
         headerParent = new LinearLayout(context);
         footerParent = new LinearLayout(context);
-
-        adapterProxy = new AdapterProxy(this);
-        super.setAdapter(adapterProxy);
+        proxyAdapter = new ProxyAdapter(this);
+        super.setAdapter(proxyAdapter);
     }
 
     @NonNull
@@ -53,22 +51,22 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
 
     public void addHeaderView(@NonNull View view) {
         headerParent.addView(view);
-        adapterProxy.notifyHeaderInserted();
+        proxyAdapter.notifyHeaderInserted();
     }
 
     public void addHeaderView(@NonNull View view, int index) {
         headerParent.addView(view, index);
-        adapterProxy.notifyHeaderInserted();
+        proxyAdapter.notifyHeaderInserted();
     }
 
     public void removeHeaderView(@NonNull View view) {
         headerParent.removeView(view);
-        adapterProxy.notifyHeaderRemoved();
+        proxyAdapter.notifyHeaderRemoved();
     }
 
     public void removeHeaderView(int index) {
         headerParent.removeViewAt(index);
-        adapterProxy.notifyHeaderRemoved();
+        proxyAdapter.notifyHeaderRemoved();
     }
 
     @NonNull
@@ -82,22 +80,22 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
 
     public void addFooterView(@NonNull View view) {
         footerParent.addView(view);
-        adapterProxy.notifyFooterInserted();
+        proxyAdapter.notifyFooterInserted();
     }
 
     public void addFooterView(@NonNull View view, int index) {
         footerParent.addView(view, index);
-        adapterProxy.notifyFooterInserted();
+        proxyAdapter.notifyFooterInserted();
     }
 
     public void removeFooterView(@NonNull View view) {
         footerParent.removeView(view);
-        adapterProxy.notifyFooterRemoved();
+        proxyAdapter.notifyFooterRemoved();
     }
 
     public void removeFooterView(int index) {
         footerParent.removeViewAt(index);
-        adapterProxy.notifyFooterRemoved();
+        proxyAdapter.notifyFooterRemoved();
     }
 
     void adjustFixedViewParentLayoutParamsAndOrientation(@NonNull LinearLayout fixedViewParent) {
@@ -195,7 +193,7 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
                 fixedViewSpanSizeLookup = (FixedViewSpanSizeLookup) gridLayoutManager.getSpanSizeLookup();
             }
             if (fixedViewSpanSizeLookup != null) {
-                fixedViewSpanSizeLookup.setTargets(adapterProxy, gridLayoutManager);
+                fixedViewSpanSizeLookup.setTargets(proxyAdapter, gridLayoutManager);
             }
         }
         super.setLayoutManager(layoutManager);
@@ -203,17 +201,17 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
 
     @Override
     public Adapter getAdapter() {
-        return adapterProxy.getAdapter();
+        return proxyAdapter.getAdapter();
     }
 
     @Override
     public void setAdapter(Adapter adapter) {
-        if (adapter != null && adapter.hasStableIds() != adapterProxy.hasStableIds()) {
+        if (adapter != null && adapter.hasStableIds() != proxyAdapter.hasStableIds()) {
             super.setAdapter(null);
-            adapterProxy.setHasStableIds(adapter.hasStableIds());
-            super.setAdapter(adapterProxy);
+            proxyAdapter.setHasStableIds(adapter.hasStableIds());
+            super.setAdapter(proxyAdapter);
         }
-        adapterProxy.setAdapter(adapter);
+        proxyAdapter.setAdapter(adapter);
     }
 
 }
