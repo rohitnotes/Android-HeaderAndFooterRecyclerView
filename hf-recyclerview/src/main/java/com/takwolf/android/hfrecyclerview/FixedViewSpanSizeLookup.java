@@ -5,10 +5,10 @@ import android.support.v7.widget.GridLayoutManager;
 
 class FixedViewSpanSizeLookup extends GridLayoutManager.SpanSizeLookup {
 
-    private final AdapterProxy adapterProxy;
-    private final GridLayoutManager gridLayoutManager;
+    private AdapterProxy adapterProxy;
+    private GridLayoutManager gridLayoutManager;
 
-    FixedViewSpanSizeLookup(@NonNull AdapterProxy adapterProxy, @NonNull GridLayoutManager gridLayoutManager) {
+    void setTargets(@NonNull AdapterProxy adapterProxy, @NonNull GridLayoutManager gridLayoutManager) {
         this.adapterProxy = adapterProxy;
         this.gridLayoutManager = gridLayoutManager;
     }

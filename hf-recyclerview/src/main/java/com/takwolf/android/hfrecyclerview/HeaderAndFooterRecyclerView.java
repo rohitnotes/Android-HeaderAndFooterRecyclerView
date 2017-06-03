@@ -100,57 +100,70 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
         adapterProxy.notifyFooterRemoved();
     }
 
-    private void setHeaderOrFooterOrientation(@NonNull LinearLayout parent, int orientation, boolean isStaggeredGridLayout) {
-        parent.setOrientation(orientation);
-        if (isStaggeredGridLayout) {
-            StaggeredGridLayoutManager.LayoutParams layoutParams;
-            if (orientation == LinearLayout.VERTICAL) {
-                layoutParams = new StaggeredGridLayoutManager.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            } else {
-                layoutParams = new StaggeredGridLayoutManager.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            }
-            layoutParams.setFullSpan(true);
-            parent.setLayoutParams(layoutParams);
-        } else {
-            LinearLayout.LayoutParams layoutParams;
-            if (orientation == LinearLayout.VERTICAL) {
-                layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            } else {
-                layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            }
-            parent.setLayoutParams(layoutParams);
-        }
-    }
-
     @Override
     public void setLayoutManager(LayoutManager layoutManager) {
         super.setLayoutManager(layoutManager);
-        if (layoutManager != null) {
-            // Orientation
-            if (layoutManager instanceof LinearLayoutManager) {
-                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) layoutManager;
-                if (linearLayoutManager.getOrientation() == LinearLayoutManager.VERTICAL) {
-                    setHeaderOrFooterOrientation(headerParent, LinearLayout.VERTICAL, false);
-                    setHeaderOrFooterOrientation(footerParent, LinearLayout.VERTICAL, false);
-                } else if (linearLayoutManager.getOrientation() == LinearLayoutManager.HORIZONTAL) {
-                    setHeaderOrFooterOrientation(headerParent, LinearLayout.HORIZONTAL, false);
-                    setHeaderOrFooterOrientation(footerParent, LinearLayout.HORIZONTAL, false);
-                }
-            } else if (layoutManager instanceof StaggeredGridLayoutManager) {
-                StaggeredGridLayoutManager staggeredGridLayoutManager = (StaggeredGridLayoutManager) layoutManager;
-                if (staggeredGridLayoutManager.getOrientation() == StaggeredGridLayoutManager.VERTICAL) {
-                    setHeaderOrFooterOrientation(headerParent, LinearLayout.VERTICAL, true);
-                    setHeaderOrFooterOrientation(footerParent, LinearLayout.VERTICAL, true);
-                } else if (staggeredGridLayoutManager.getOrientation() == StaggeredGridLayoutManager.HORIZONTAL) {
-                    setHeaderOrFooterOrientation(headerParent, LinearLayout.HORIZONTAL, true);
-                    setHeaderOrFooterOrientation(footerParent, LinearLayout.HORIZONTAL, true);
-                }
-            }
+        onLayoutManagerUpdate();
+    }
+
+    public void onLayoutManagerUpdate() {
+        if (getLayoutManager() != null) {
+            // Orientation and LayoutParams
+            adjustFixedViewParentOrientationAndLayoutParams(headerParent, getLayoutManager());
+            adjustFixedViewParentOrientationAndLayoutParams(footerParent, getLayoutManager());
             // SpanSizeLookup
-            if (layoutManager instanceof GridLayoutManager) {
-                GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
-                gridLayoutManager.setSpanSizeLookup(new FixedViewSpanSizeLookup(adapterProxy, gridLayoutManager));
+            if (getLayoutManager() instanceof GridLayoutManager) {
+                GridLayoutManager gridLayoutManager = (GridLayoutManager) getLayoutManager();
+                FixedViewSpanSizeLookup fixedViewSpanSizeLookup;
+                if (gridLayoutManager.getSpanSizeLookup() == null || gridLayoutManager.getSpanSizeLookup().getClass() != FixedViewSpanSizeLookup.class) {
+                    fixedViewSpanSizeLookup = new FixedViewSpanSizeLookup();
+                    gridLayoutManager.setSpanSizeLookup(fixedViewSpanSizeLookup);
+                } else {
+                    fixedViewSpanSizeLookup = (FixedViewSpanSizeLookup) gridLayoutManager.getSpanSizeLookup();
+                }
+                fixedViewSpanSizeLookup.setTargets(adapterProxy, gridLayoutManager);
             }
+        }
+    }
+
+    private void adjustFixedViewParentOrientationAndLayoutParams(@NonNull LinearLayout fixedViewParent, @NonNull LayoutManager layoutManager) {
+        if (layoutManager instanceof GridLayoutManager) {
+            int orientation;
+            GridLayoutManager.LayoutParams layoutParams;
+            if (((GridLayoutManager) layoutManager).getOrientation() == LinearLayoutManager.VERTICAL) {
+                orientation = LinearLayout.VERTICAL;
+                layoutParams = new GridLayoutManager.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            } else {
+                orientation = LinearLayout.HORIZONTAL;
+                layoutParams = new GridLayoutManager.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            }
+            fixedViewParent.setOrientation(orientation);
+            fixedViewParent.setLayoutParams(layoutParams);
+        } else if (layoutManager instanceof LinearLayoutManager) {
+            int orientation;
+            LayoutParams layoutParams;
+            if (((LinearLayoutManager) layoutManager).getOrientation() == LinearLayoutManager.VERTICAL) {
+                orientation = LinearLayout.VERTICAL;
+                layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            } else {
+                orientation = LinearLayout.HORIZONTAL;
+                layoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            }
+            fixedViewParent.setOrientation(orientation);
+            fixedViewParent.setLayoutParams(layoutParams);
+        } else if (layoutManager instanceof StaggeredGridLayoutManager) {
+            int orientation;
+            StaggeredGridLayoutManager.LayoutParams layoutParams;
+            if (((StaggeredGridLayoutManager) layoutManager).getOrientation() == StaggeredGridLayoutManager.VERTICAL) {
+                orientation = LinearLayout.VERTICAL;
+                layoutParams = new StaggeredGridLayoutManager.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            } else {
+                orientation = LinearLayout.HORIZONTAL;
+                layoutParams = new StaggeredGridLayoutManager.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            }
+            layoutParams.setFullSpan(true);
+            fixedViewParent.setOrientation(orientation);
+            fixedViewParent.setLayoutParams(layoutParams);
         }
     }
 
