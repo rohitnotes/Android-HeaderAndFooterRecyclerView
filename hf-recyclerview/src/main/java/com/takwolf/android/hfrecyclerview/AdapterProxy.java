@@ -105,6 +105,14 @@ class AdapterProxy extends RecyclerView.Adapter {
         return recyclerView.getFooterViewCount() > 0;
     }
 
+    private boolean isHeaderViewHolderPosition(int position) {
+        return position == 0 && isShowHeaderViewHolder();
+    }
+
+    private boolean isFooterViewHolderPosition(int position) {
+        return position == getItemCount() - 1 && isShowFooterViewHolder();
+    }
+
     private int getHeaderViewHolderCount() {
         return isShowHeaderViewHolder() ? 1 : 0;
     }
@@ -115,14 +123,6 @@ class AdapterProxy extends RecyclerView.Adapter {
 
     private int getPositionOffset() {
         return getHeaderViewHolderCount();
-    }
-
-    private boolean isHeaderViewHolderPosition(int position) {
-        return position == 0 && isShowHeaderViewHolder();
-    }
-
-    private boolean isFooterViewHolderPosition(int position) {
-        return position == getItemCount() - 1 && isShowFooterViewHolder();
     }
 
     @Override
