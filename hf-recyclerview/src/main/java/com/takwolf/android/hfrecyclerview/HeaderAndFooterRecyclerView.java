@@ -193,7 +193,7 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
                 fixedViewSpanSizeLookup = (FixedViewSpanSizeLookup) gridLayoutManager.getSpanSizeLookup();
             }
             if (fixedViewSpanSizeLookup != null) {
-                fixedViewSpanSizeLookup.setTargets(proxyAdapter, gridLayoutManager);
+                fixedViewSpanSizeLookup.setTargets(gridLayoutManager, proxyAdapter);
             }
         }
         super.setLayoutManager(layoutManager);

@@ -5,12 +5,12 @@ import android.support.v7.widget.GridLayoutManager;
 
 final class FixedViewSpanSizeLookup extends GridLayoutManager.SpanSizeLookup {
 
-    private ProxyAdapter proxyAdapter;
     private GridLayoutManager gridLayoutManager;
+    private ProxyAdapter proxyAdapter;
 
-    void setTargets(@NonNull ProxyAdapter proxyAdapter, @NonNull GridLayoutManager gridLayoutManager) {
-        this.proxyAdapter = proxyAdapter;
+    void setTargets(@NonNull GridLayoutManager gridLayoutManager, @NonNull ProxyAdapter proxyAdapter) {
         this.gridLayoutManager = gridLayoutManager;
+        this.proxyAdapter = proxyAdapter;
     }
 
     @Override
