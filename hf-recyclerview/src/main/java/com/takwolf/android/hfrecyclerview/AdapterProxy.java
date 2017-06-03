@@ -73,25 +73,25 @@ class AdapterProxy extends RecyclerView.Adapter {
         }
     }
 
-    public void notifyHeaderInserted() {
+    void notifyHeaderInserted() {
         if (recyclerView.getHeaderViewCount() == 1) {
             notifyItemInserted(0);
         }
     }
 
-    public void notifyHeaderRemoved() {
+    void notifyHeaderRemoved() {
         if (recyclerView.getHeaderViewCount() == 0) {
             notifyItemRemoved(0);
         }
     }
 
-    public void notifyFooterInserted() {
+    void notifyFooterInserted() {
         if (recyclerView.getFooterViewCount() == 1) {
             notifyItemInserted(getItemCount() - 1);
         }
     }
 
-    public void notifyFooterRemoved() {
+    void notifyFooterRemoved() {
         if (recyclerView.getFooterViewCount() == 0) {
             notifyItemRemoved(getItemCount());
         }
@@ -171,6 +171,7 @@ class AdapterProxy extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (adapter != null && !isHeaderViewHolderPosition(position) && !isFooterViewHolderPosition(position)) {
+            //noinspection unchecked
             adapter.onBindViewHolder(holder, position - getPositionOffset());
         }
     }
@@ -178,6 +179,7 @@ class AdapterProxy extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position, List payloads) {
         if (adapter != null && !isHeaderViewHolderPosition(position) && !isFooterViewHolderPosition(position)) {
+            //noinspection unchecked
             adapter.onBindViewHolder(holder, position - getPositionOffset(), payloads);
         }
     }
@@ -194,13 +196,16 @@ class AdapterProxy extends RecyclerView.Adapter {
     @Override
     public void onViewRecycled(RecyclerView.ViewHolder holder) {
         if (adapter != null && holder.getItemViewType() != TYPE_HEADER && holder.getItemViewType() != TYPE_FOOTER) {
+            //noinspection unchecked
             adapter.onViewRecycled(holder);
         }
     }
 
     @Override
     public boolean onFailedToRecycleView(RecyclerView.ViewHolder holder) {
+        //noinspection SimplifiableIfStatement
         if (adapter != null && holder.getItemViewType() != TYPE_HEADER && holder.getItemViewType() != TYPE_FOOTER) {
+            //noinspection unchecked
             return adapter.onFailedToRecycleView(holder);
         } else {
             return false;
@@ -210,6 +215,7 @@ class AdapterProxy extends RecyclerView.Adapter {
     @Override
     public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
         if (adapter != null && holder.getItemViewType() != TYPE_HEADER && holder.getItemViewType() != TYPE_FOOTER) {
+            //noinspection unchecked
             adapter.onViewAttachedToWindow(holder);
         }
     }
@@ -217,6 +223,7 @@ class AdapterProxy extends RecyclerView.Adapter {
     @Override
     public void onViewDetachedFromWindow(RecyclerView.ViewHolder holder) {
         if (adapter != null && holder.getItemViewType() != TYPE_HEADER && holder.getItemViewType() != TYPE_FOOTER) {
+            //noinspection unchecked
             adapter.onViewDetachedFromWindow(holder);
         }
     }
