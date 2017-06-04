@@ -52,25 +52,25 @@ public class GridHorizontalAdapter extends RecyclerView.Adapter<GridHorizontalAd
         holder.update(illustList.get(position));
     }
 
-    protected class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.img_thumb)
-        protected ImageView imgThumb;
+        ImageView imgThumb;
 
         private Illust illust;
 
-        protected ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
-        protected void update(@NonNull Illust illust) {
+        void update(@NonNull Illust illust) {
             this.illust = illust;
             Glide.with(activity).load(illust.getImage()).placeholder(R.drawable.image_placeholder).into(imgThumb);
         }
 
         @OnClick(R.id.btn_item)
-        protected void onBtnItemClick() {
+        void onBtnItemClick() {
             int position = illustList.indexOf(illust);
             int newPosition = Math.abs(RandomUtils.random.nextInt()) % illustList.size();
             illustList.add(newPosition, illustList.remove(position));
@@ -78,7 +78,7 @@ public class GridHorizontalAdapter extends RecyclerView.Adapter<GridHorizontalAd
         }
 
         @OnLongClick(R.id.btn_item)
-        protected boolean onBtnItemLongClick() {
+        boolean onBtnItemLongClick() {
             int position = illustList.indexOf(illust);
             illustList.remove(position);
             notifyItemRemoved(position);

@@ -26,7 +26,7 @@ public class HorizontalHeader {
     }
 
     @OnLongClick(R.id.btn_item)
-    protected boolean onBtnItemLongClick() {
+    boolean onBtnItemLongClick() {
         recyclerView.removeHeaderView(headerView);
         return true;
     }

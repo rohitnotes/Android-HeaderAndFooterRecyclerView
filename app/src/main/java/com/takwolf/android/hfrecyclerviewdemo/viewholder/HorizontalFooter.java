@@ -26,7 +26,7 @@ public class HorizontalFooter {
     }
 
     @OnLongClick(R.id.btn_item)
-    protected boolean onBtnItemLongClick() {
+    boolean onBtnItemLongClick() {
         recyclerView.removeFooterView(footerView);
         return true;
     }

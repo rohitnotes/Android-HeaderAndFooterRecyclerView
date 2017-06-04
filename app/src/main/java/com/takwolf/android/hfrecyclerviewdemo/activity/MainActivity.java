@@ -19,32 +19,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.btn_linear_vertical)
-    protected void onBtnLinearVerticalClick() {
+    void onBtnLinearVerticalClick() {
         startActivity(new Intent(this, LinearVerticalActivity.class));
     }
 
     @OnClick(R.id.btn_linear_horizontal)
-    protected void onBtnLinearHorizontalClick() {
+    void onBtnLinearHorizontalClick() {
         startActivity(new Intent(this, LinearHorizontalActivity.class));
     }
 
     @OnClick(R.id.btn_grid_vertical)
-    protected void onBtnGridVerticalClick() {
+    void onBtnGridVerticalClick() {
         startActivity(new Intent(this, GridVerticalActivity.class));
     }
 
     @OnClick(R.id.btn_grid_horizontal)
-    protected void onBtnGridHorizontalClick() {
+    void onBtnGridHorizontalClick() {
         startActivity(new Intent(this, GridHorizontalActivity.class));
     }
 
     @OnClick(R.id.btn_staggered_vertical)
-    protected void onBtnStaggeredVerticalClick() {
+    void onBtnStaggeredVerticalClick() {
         startActivity(new Intent(this, StaggeredVerticalActivity.class));
     }
 
     @OnClick(R.id.btn_staggered_horizontal)
-    protected void onBtnStaggeredHorizontalClick() {
+    void onBtnStaggeredHorizontalClick() {
         startActivity(new Intent(this, StaggeredHorizontalActivity.class));
     }
 

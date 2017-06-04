@@ -20,13 +20,13 @@ import butterknife.ButterKnife;
 public class LinearVerticalActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.toolbar)
-    protected Toolbar toolbar;
+    Toolbar toolbar;
 
     @BindView(R.id.refresh_layout)
-    protected SwipeRefreshLayout refreshLayout;
+    SwipeRefreshLayout refreshLayout;
 
     @BindView(R.id.recycler_view)
-    protected HeaderAndFooterRecyclerView recyclerView;
+    HeaderAndFooterRecyclerView recyclerView;
 
     private LinearVerticalAdapter adapter;
 

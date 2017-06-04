@@ -26,7 +26,7 @@ public class ControllerViewHolder {
     }
 
     @OnClick(R.id.btn_add_header)
-    protected void onBtnAddHeaderClick() {
+    void onBtnAddHeaderClick() {
         if (orientation == ORIENTATION_VERTICAL) {
             new VerticalHeader(activity, recyclerView);
         } else {
@@ -35,14 +35,14 @@ public class ControllerViewHolder {
     }
 
     @OnClick(R.id.btn_remove_header)
-    protected void onBtnRemoveHeader() {
+    void onBtnRemoveHeader() {
         if (recyclerView.getHeaderViewCount() > 0) {
             recyclerView.removeHeaderView(0);
         }
     }
 
     @OnClick(R.id.btn_add_footer)
-    protected void onBtnAddFooterClick() {
+    void onBtnAddFooterClick() {
         if (orientation == ORIENTATION_VERTICAL) {
             new VerticalFooter(activity, recyclerView);
         } else {
@@ -51,7 +51,7 @@ public class ControllerViewHolder {
     }
 
     @OnClick(R.id.btn_remove_footer)
-    protected void onBtnRemoveFooterClick() {
+    void onBtnRemoveFooterClick() {
         if (recyclerView.getFooterViewCount() > 0) {
             recyclerView.removeFooterView(0);
         }

@@ -18,10 +18,10 @@ import butterknife.ButterKnife;
 public class LinearHorizontalActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
-    protected Toolbar toolbar;
+    Toolbar toolbar;
 
     @BindView(R.id.recycler_view)
-    protected HeaderAndFooterRecyclerView recyclerView;
+    HeaderAndFooterRecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
