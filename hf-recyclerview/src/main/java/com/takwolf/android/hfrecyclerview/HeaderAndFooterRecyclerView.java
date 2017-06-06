@@ -211,12 +211,22 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
 
     @Override
     public void setAdapter(Adapter adapter) {
-        if (adapter != null && adapter.hasStableIds() != proxyAdapter.hasStableIds()) {
-            super.setAdapter(null);
+        super.setAdapter(null);
+        if (adapter != null) {
             proxyAdapter.setHasStableIds(adapter.hasStableIds());
-            super.setAdapter(proxyAdapter);
         }
         proxyAdapter.setAdapter(adapter);
+        super.setAdapter(proxyAdapter);
+    }
+
+    @Override
+    public void swapAdapter(Adapter adapter, boolean removeAndRecycleExistingViews) {
+        super.swapAdapter(null, removeAndRecycleExistingViews);
+        if (adapter != null) {
+            proxyAdapter.setHasStableIds(adapter.hasStableIds());
+        }
+        proxyAdapter.setAdapter(adapter);
+        super.swapAdapter(proxyAdapter, removeAndRecycleExistingViews);
     }
 
 }

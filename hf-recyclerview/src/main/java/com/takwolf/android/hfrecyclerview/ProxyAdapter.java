@@ -54,19 +54,15 @@ public class ProxyAdapter extends RecyclerView.Adapter {
     }
 
     void setAdapter(RecyclerView.Adapter adapter) {
-        if (this.adapter == adapter) {
-            return;
-        }
         if (this.adapter != null) {
             this.adapter.unregisterAdapterDataObserver(adapterDataObserver);
             this.adapter.onDetachedFromRecyclerView(recyclerView);
         }
         this.adapter = adapter;
-        if (this.adapter != null) {
-            this.adapter.registerAdapterDataObserver(adapterDataObserver);
-            this.adapter.onAttachedToRecyclerView(recyclerView);
+        if (adapter != null) {
+            adapter.registerAdapterDataObserver(adapterDataObserver);
+            adapter.onAttachedToRecyclerView(recyclerView);
         }
-        notifyDataSetChanged();
     }
 
     void notifyHeaderInserted() {
