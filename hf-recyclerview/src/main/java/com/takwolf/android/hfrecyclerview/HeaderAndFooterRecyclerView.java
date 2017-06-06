@@ -214,6 +214,8 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
         super.setAdapter(null);
         if (adapter != null) {
             proxyAdapter.setHasStableIds(adapter.hasStableIds());
+        } else {
+            proxyAdapter.setHasStableIds(false);
         }
         proxyAdapter.setAdapter(adapter);
         super.setAdapter(proxyAdapter);
@@ -224,6 +226,8 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
         super.swapAdapter(null, removeAndRecycleExistingViews);
         if (adapter != null) {
             proxyAdapter.setHasStableIds(adapter.hasStableIds());
+        } else {
+            proxyAdapter.setHasStableIds(false);
         }
         proxyAdapter.setAdapter(adapter);
         super.swapAdapter(proxyAdapter, removeAndRecycleExistingViews);
