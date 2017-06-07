@@ -14,26 +14,20 @@ import android.widget.LinearLayout;
 
 public class HeaderAndFooterRecyclerView extends RecyclerView {
 
-    private LinearLayout headerParent;
-    private LinearLayout footerParent;
-    private ProxyAdapter proxyAdapter;
+    private final LinearLayout headerParent;
+    private final LinearLayout footerParent;
+    private final ProxyAdapter proxyAdapter;
 
     public HeaderAndFooterRecyclerView(@NonNull Context context) {
-        super(context);
-        init(context);
+        this(context, null);
     }
 
     public HeaderAndFooterRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-        init(context);
+        this(context, attrs, 0);
     }
 
     public HeaderAndFooterRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        init(context);
-    }
-
-    private void init(@NonNull Context context) {
         headerParent = new LinearLayout(context);
         footerParent = new LinearLayout(context);
         proxyAdapter = new ProxyAdapter(this);
