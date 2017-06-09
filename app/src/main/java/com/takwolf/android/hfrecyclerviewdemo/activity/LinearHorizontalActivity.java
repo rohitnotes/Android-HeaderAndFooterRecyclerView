@@ -26,7 +26,7 @@ public class LinearHorizontalActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recycler_horizontal);
+        setContentView(R.layout.activity_recycler);
         ButterKnife.bind(this);
 
         toolbar.setTitle("Linear Horizontal");
