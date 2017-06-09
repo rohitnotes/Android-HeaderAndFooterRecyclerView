@@ -37,7 +37,7 @@ public class GridHorizontalActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3, LinearLayoutManager.HORIZONTAL, false));
         GridHorizontalAdapter adapter = new GridHorizontalAdapter(this);
-        adapter.getIllustList().addAll(ApiClient.buildIllustList(35));
+        adapter.getIllustList().addAll(ApiClient.buildIllustList());
         recyclerView.setAdapter(adapter);
     }
 

@@ -43,7 +43,7 @@ public class LinearVerticalActivity extends AppCompatActivity implements SwipeRe
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new LinearVerticalAdapter(this);
-        adapter.getIllustList().addAll(ApiClient.buildIllustList(35));
+        adapter.getIllustList().addAll(ApiClient.buildIllustList());
         recyclerView.setAdapter(adapter);
 
         refreshLayout.setOnRefreshListener(this);
@@ -56,7 +56,7 @@ public class LinearVerticalActivity extends AppCompatActivity implements SwipeRe
             @Override
             public void run() {
                 adapter.getIllustList().clear();
-                adapter.getIllustList().addAll(ApiClient.buildIllustList(35));
+                adapter.getIllustList().addAll(ApiClient.buildIllustList());
                 adapter.notifyDataSetChanged();
                 refreshLayout.setRefreshing(false);
             }

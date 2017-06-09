@@ -43,7 +43,7 @@ public class StaggeredVerticalActivity extends AppCompatActivity implements Swip
 
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         adapter = new StaggeredVerticalAdapter(this);
-        adapter.getIllustList().addAll(ApiClient.buildIllustList(35));
+        adapter.getIllustList().addAll(ApiClient.buildIllustList());
         recyclerView.setAdapter(adapter);
 
         refreshLayout.setOnRefreshListener(this);
@@ -56,7 +56,7 @@ public class StaggeredVerticalActivity extends AppCompatActivity implements Swip
             @Override
             public void run() {
                 adapter.getIllustList().clear();
-                adapter.getIllustList().addAll(ApiClient.buildIllustList(35));
+                adapter.getIllustList().addAll(ApiClient.buildIllustList());
                 adapter.notifyDataSetChanged();
                 refreshLayout.setRefreshing(false);
             }

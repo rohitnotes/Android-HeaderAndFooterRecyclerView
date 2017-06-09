@@ -8,6 +8,8 @@ import java.util.UUID;
 
 public final class ApiClient {
 
+    public static final int PAGE_SIZE = 40;
+
     private ApiClient() {}
 
     private static final String[] images = {
@@ -58,9 +60,9 @@ public final class ApiClient {
             "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1097612239,3740592325&fm=23&gp=0.jpg"
     };
 
-    public static List<Illust> buildIllustList(int size) {
+    public static List<Illust> buildIllustList() {
         List<Illust> illustList = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < PAGE_SIZE; i++) {
             int position = Math.abs(RandomUtils.random.nextInt()) % images.length;
             illustList.add(new Illust(UUID.randomUUID().toString(), images[position]));
         }

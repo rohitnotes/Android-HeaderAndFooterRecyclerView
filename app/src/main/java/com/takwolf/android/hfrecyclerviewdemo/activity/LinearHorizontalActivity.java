@@ -36,7 +36,7 @@ public class LinearHorizontalActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         LinearHorizontalAdapter adapter = new LinearHorizontalAdapter(this);
-        adapter.getIllustList().addAll(ApiClient.buildIllustList(35));
+        adapter.getIllustList().addAll(ApiClient.buildIllustList());
         recyclerView.setAdapter(adapter);
     }
 

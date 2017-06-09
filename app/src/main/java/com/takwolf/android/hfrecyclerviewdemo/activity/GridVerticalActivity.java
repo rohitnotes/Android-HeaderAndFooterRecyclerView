@@ -46,7 +46,7 @@ public class GridVerticalActivity extends AppCompatActivity implements SwipeRefr
         layoutManager.setSpanSizeLookup(new CustomSpanSizeLookup(layoutManager, recyclerView.getProxyAdapter()));
         recyclerView.setLayoutManager(layoutManager);
         adapter = new GridVerticalAdapter(this);
-        adapter.getIllustList().addAll(ApiClient.buildIllustList(35));
+        adapter.getIllustList().addAll(ApiClient.buildIllustList());
         recyclerView.setAdapter(adapter);
 
         refreshLayout.setOnRefreshListener(this);
@@ -59,7 +59,7 @@ public class GridVerticalActivity extends AppCompatActivity implements SwipeRefr
             @Override
             public void run() {
                 adapter.getIllustList().clear();
-                adapter.getIllustList().addAll(ApiClient.buildIllustList(35));
+                adapter.getIllustList().addAll(ApiClient.buildIllustList());
                 adapter.notifyDataSetChanged();
                 refreshLayout.setRefreshing(false);
             }
