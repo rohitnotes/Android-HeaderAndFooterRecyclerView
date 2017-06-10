@@ -11,7 +11,7 @@
         android:layout_height="32dp"
         android:layout_gravity="center"
         android:layout_margin="16dp"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:matProg_barColor="?attr/colorAccent"
         app:matProg_progressIndeterminate="true"
         app:matProg_barWidth="3dp"
@@ -25,6 +25,7 @@
         android:textSize="14sp"
         android:gravity="center"
         android:background="?attr/selectableItemBackground"
+        android:visibility="invisible"
         tools:text="加载状态"
         tools:visibility="visible" />
 

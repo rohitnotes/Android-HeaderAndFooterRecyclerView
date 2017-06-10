@@ -83,35 +83,35 @@ public class LoadMoreFooter {
             this.state = state;
             switch (state) {
                 case STATE_DISABLED:
-                    progressWheel.setVisibility(View.GONE);
+                    progressWheel.setVisibility(View.INVISIBLE);
                     progressWheel.stopSpinning();
-                    tvText.setVisibility(View.GONE);
+                    tvText.setVisibility(View.INVISIBLE);
                     tvText.setText(null);
                     tvText.setClickable(false);
                     break;
                 case STATE_LOADING:
                     progressWheel.setVisibility(View.VISIBLE);
                     progressWheel.spin();
-                    tvText.setVisibility(View.GONE);
+                    tvText.setVisibility(View.INVISIBLE);
                     tvText.setText(null);
                     tvText.setClickable(false);
                     break;
                 case STATE_FINISHED:
-                    progressWheel.setVisibility(View.GONE);
+                    progressWheel.setVisibility(View.INVISIBLE);
                     progressWheel.stopSpinning();
                     tvText.setVisibility(View.VISIBLE);
                     tvText.setText(R.string.load_more_finished);
                     tvText.setClickable(false);
                     break;
                 case STATE_ENDLESS:
-                    progressWheel.setVisibility(View.GONE);
+                    progressWheel.setVisibility(View.INVISIBLE);
                     progressWheel.stopSpinning();
                     tvText.setVisibility(View.VISIBLE);
                     tvText.setText(null);
                     tvText.setClickable(true);
                     break;
                 case STATE_FAILED:
-                    progressWheel.setVisibility(View.GONE);
+                    progressWheel.setVisibility(View.INVISIBLE);
                     progressWheel.stopSpinning();
                     tvText.setVisibility(View.VISIBLE);
                     tvText.setText(R.string.load_more_failed);
