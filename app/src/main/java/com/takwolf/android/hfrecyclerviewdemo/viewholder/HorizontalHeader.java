@@ -20,7 +20,7 @@ public class HorizontalHeader {
     public HorizontalHeader(@NonNull Activity activity, @NonNull HeaderAndFooterRecyclerView recyclerView) {
         this.activity = activity;
         this.recyclerView = recyclerView;
-        headerView = LayoutInflater.from(activity).inflate(R.layout.header_horizontal, recyclerView.getHeaderParent(), false);
+        headerView = LayoutInflater.from(activity).inflate(R.layout.header_horizontal, recyclerView.getHeaderContainer(), false);
         recyclerView.addHeaderView(headerView);
         ButterKnife.bind(this, headerView);
     }

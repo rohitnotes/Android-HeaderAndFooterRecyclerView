@@ -20,7 +20,7 @@ public class VerticalHeader {
     public VerticalHeader(@NonNull Activity activity, @NonNull HeaderAndFooterRecyclerView recyclerView) {
         this.activity = activity;
         this.recyclerView = recyclerView;
-        headerView = LayoutInflater.from(activity).inflate(R.layout.header_vertical, recyclerView.getHeaderParent(), false);
+        headerView = LayoutInflater.from(activity).inflate(R.layout.header_vertical, recyclerView.getHeaderContainer(), false);
         recyclerView.addHeaderView(headerView);
         ButterKnife.bind(this, headerView);
     }

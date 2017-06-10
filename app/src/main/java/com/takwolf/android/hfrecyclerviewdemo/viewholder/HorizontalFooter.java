@@ -20,7 +20,7 @@ public class HorizontalFooter {
     public HorizontalFooter(@NonNull Activity activity, @NonNull HeaderAndFooterRecyclerView recyclerView) {
         this.activity = activity;
         this.recyclerView = recyclerView;
-        footerView = LayoutInflater.from(activity).inflate(R.layout.footer_horizontal, recyclerView.getFooterParent(), false);
+        footerView = LayoutInflater.from(activity).inflate(R.layout.footer_horizontal, recyclerView.getFooterContainer(), false);
         recyclerView.addFooterView(footerView);
         ButterKnife.bind(this, footerView);
     }

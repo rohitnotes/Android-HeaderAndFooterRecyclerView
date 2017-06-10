@@ -148,9 +148,9 @@ public class ProxyAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case FixedViewHolder.TYPE_HEADER:
-                return new FixedViewHolder(recyclerView.getHeaderParent());
+                return new FixedViewHolder(recyclerView.getHeaderContainer());
             case FixedViewHolder.TYPE_FOOTER:
-                return new FixedViewHolder(recyclerView.getFooterParent());
+                return new FixedViewHolder(recyclerView.getFooterContainer());
             default:
                 if (adapter != null) {
                     return adapter.onCreateViewHolder(parent, viewType);
@@ -163,9 +163,9 @@ public class ProxyAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder.getItemViewType() == FixedViewHolder.TYPE_HEADER) {
-            recyclerView.adjustFixedViewParentLayoutParamsAndOrientation(recyclerView.getHeaderParent());
+            recyclerView.adjustFixedViewContainerLayoutParamsAndOrientation(recyclerView.getHeaderContainer());
         } else if (holder.getItemViewType() == FixedViewHolder.TYPE_FOOTER) {
-            recyclerView.adjustFixedViewParentLayoutParamsAndOrientation(recyclerView.getFooterParent());
+            recyclerView.adjustFixedViewContainerLayoutParamsAndOrientation(recyclerView.getFooterContainer());
         } else if (adapter != null) {
             //noinspection unchecked
             adapter.onBindViewHolder(holder, position - getPositionOffset());
@@ -175,9 +175,9 @@ public class ProxyAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position, List payloads) {
         if (holder.getItemViewType() == FixedViewHolder.TYPE_HEADER) {
-            recyclerView.adjustFixedViewParentLayoutParamsAndOrientation(recyclerView.getHeaderParent());
+            recyclerView.adjustFixedViewContainerLayoutParamsAndOrientation(recyclerView.getHeaderContainer());
         } else if (holder.getItemViewType() == FixedViewHolder.TYPE_FOOTER) {
-            recyclerView.adjustFixedViewParentLayoutParamsAndOrientation(recyclerView.getFooterParent());
+            recyclerView.adjustFixedViewContainerLayoutParamsAndOrientation(recyclerView.getFooterContainer());
         } else if (adapter != null) {
             //noinspection unchecked
             adapter.onBindViewHolder(holder, position - getPositionOffset(), payloads);

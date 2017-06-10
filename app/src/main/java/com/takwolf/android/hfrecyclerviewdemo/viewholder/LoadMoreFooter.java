@@ -51,7 +51,7 @@ public class LoadMoreFooter {
 
     public LoadMoreFooter(@NonNull Context context, @NonNull HeaderAndFooterRecyclerView recyclerView, @NonNull OnLoadMoreListener loadMoreListener) {
         this.loadMoreListener = loadMoreListener;
-        View footerView = LayoutInflater.from(context).inflate(R.layout.footer_load_more, recyclerView.getFooterParent(), false);
+        View footerView = LayoutInflater.from(context).inflate(R.layout.footer_load_more, recyclerView.getFooterContainer(), false);
         recyclerView.addFooterView(footerView);
         ButterKnife.bind(this, footerView);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {

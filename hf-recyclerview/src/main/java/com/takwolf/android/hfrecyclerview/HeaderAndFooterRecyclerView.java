@@ -14,8 +14,8 @@ import android.widget.LinearLayout;
 
 public class HeaderAndFooterRecyclerView extends RecyclerView {
 
-    private final LinearLayout headerParent;
-    private final LinearLayout footerParent;
+    private final LinearLayout headerContainer;
+    private final LinearLayout footerContainer;
     private final ProxyAdapter proxyAdapter;
 
     public HeaderAndFooterRecyclerView(@NonNull Context context) {
@@ -28,77 +28,77 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
 
     public HeaderAndFooterRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        headerParent = new LinearLayout(context);
-        footerParent = new LinearLayout(context);
+        headerContainer = new LinearLayout(context);
+        footerContainer = new LinearLayout(context);
         proxyAdapter = new ProxyAdapter(this);
         super.setAdapter(proxyAdapter);
     }
 
     @NonNull
-    public LinearLayout getHeaderParent() {
-        return headerParent;
+    public LinearLayout getHeaderContainer() {
+        return headerContainer;
     }
 
     public int getHeaderViewCount() {
-        return headerParent.getChildCount();
+        return headerContainer.getChildCount();
     }
 
     public void addHeaderView(@NonNull View view) {
-        headerParent.addView(view);
+        headerContainer.addView(view);
         proxyAdapter.notifyHeaderInserted();
     }
 
     public void addHeaderView(@NonNull View view, int index) {
-        headerParent.addView(view, index);
+        headerContainer.addView(view, index);
         proxyAdapter.notifyHeaderInserted();
     }
 
     public void removeHeaderView(@NonNull View view) {
-        headerParent.removeView(view);
+        headerContainer.removeView(view);
         proxyAdapter.notifyHeaderRemoved();
     }
 
     public void removeHeaderView(int index) {
-        headerParent.removeViewAt(index);
+        headerContainer.removeViewAt(index);
         proxyAdapter.notifyHeaderRemoved();
     }
 
     @NonNull
-    public LinearLayout getFooterParent() {
-        return footerParent;
+    public LinearLayout getFooterContainer() {
+        return footerContainer;
     }
 
     public int getFooterViewCount() {
-        return footerParent.getChildCount();
+        return footerContainer.getChildCount();
     }
 
     public void addFooterView(@NonNull View view) {
-        footerParent.addView(view);
+        footerContainer.addView(view);
         proxyAdapter.notifyFooterInserted();
     }
 
     public void addFooterView(@NonNull View view, int index) {
-        footerParent.addView(view, index);
+        footerContainer.addView(view, index);
         proxyAdapter.notifyFooterInserted();
     }
 
     public void removeFooterView(@NonNull View view) {
-        footerParent.removeView(view);
+        footerContainer.removeView(view);
         proxyAdapter.notifyFooterRemoved();
     }
 
     public void removeFooterView(int index) {
-        footerParent.removeViewAt(index);
+        footerContainer.removeViewAt(index);
         proxyAdapter.notifyFooterRemoved();
     }
 
-    void adjustFixedViewParentLayoutParamsAndOrientation(@NonNull LinearLayout fixedViewParent) {
+    void adjustFixedViewContainerLayoutParamsAndOrientation(@NonNull LinearLayout fixedViewContainer) {
         if (getLayoutManager() instanceof GridLayoutManager) {
             GridLayoutManager gridLayoutManager = (GridLayoutManager) getLayoutManager();
             GridLayoutManager.LayoutParams layoutParams;
             int orientation;
-            if (fixedViewParent.getLayoutParams() instanceof GridLayoutManager.LayoutParams) {
-                layoutParams = (GridLayoutManager.LayoutParams) fixedViewParent.getLayoutParams();
+            if (fixedViewContainer.getLayoutParams() instanceof GridLayoutManager.LayoutParams) {
+                layoutParams = (GridLayoutManager.LayoutParams) fixedViewContainer.getLayoutParams();
                 if (gridLayoutManager.getOrientation() == LinearLayoutManager.VERTICAL) {
                     layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
                     layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -117,14 +117,14 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
                     orientation = LinearLayout.HORIZONTAL;
                 }
             }
-            fixedViewParent.setLayoutParams(layoutParams);
-            fixedViewParent.setOrientation(orientation);
+            fixedViewContainer.setLayoutParams(layoutParams);
+            fixedViewContainer.setOrientation(orientation);
         } else if (getLayoutManager() instanceof LinearLayoutManager) {
             LinearLayoutManager linearLayoutManager = (LinearLayoutManager) getLayoutManager();
             LayoutParams layoutParams;
             int orientation;
-            if (fixedViewParent.getLayoutParams() instanceof LayoutParams) {
-                layoutParams = (LayoutParams) fixedViewParent.getLayoutParams();
+            if (fixedViewContainer.getLayoutParams() instanceof LayoutParams) {
+                layoutParams = (LayoutParams) fixedViewContainer.getLayoutParams();
                 if (linearLayoutManager.getOrientation() == LinearLayoutManager.VERTICAL) {
                     layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
                     layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -143,14 +143,14 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
                     orientation = LinearLayout.HORIZONTAL;
                 }
             }
-            fixedViewParent.setLayoutParams(layoutParams);
-            fixedViewParent.setOrientation(orientation);
+            fixedViewContainer.setLayoutParams(layoutParams);
+            fixedViewContainer.setOrientation(orientation);
         } else if (getLayoutManager() instanceof StaggeredGridLayoutManager) {
             StaggeredGridLayoutManager staggeredGridLayoutManager = (StaggeredGridLayoutManager) getLayoutManager();
             StaggeredGridLayoutManager.LayoutParams layoutParams;
             int orientation;
-            if (fixedViewParent.getLayoutParams() instanceof StaggeredGridLayoutManager.LayoutParams) {
-                layoutParams = (StaggeredGridLayoutManager.LayoutParams) fixedViewParent.getLayoutParams();
+            if (fixedViewContainer.getLayoutParams() instanceof StaggeredGridLayoutManager.LayoutParams) {
+                layoutParams = (StaggeredGridLayoutManager.LayoutParams) fixedViewContainer.getLayoutParams();
                 if (staggeredGridLayoutManager.getOrientation() == StaggeredGridLayoutManager.VERTICAL) {
                     layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
                     layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -170,8 +170,8 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
                 }
             }
             layoutParams.setFullSpan(true);
-            fixedViewParent.setLayoutParams(layoutParams);
-            fixedViewParent.setOrientation(orientation);
+            fixedViewContainer.setLayoutParams(layoutParams);
+            fixedViewContainer.setOrientation(orientation);
         }
     }
 
