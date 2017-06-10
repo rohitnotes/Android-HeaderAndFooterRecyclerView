@@ -43,11 +43,13 @@ compile 'com.takwolf.android:hf-recyclerview:0.0.6'
 
 ```
 HeaderAndFooterRecyclerView recyclerView = (HeaderAndFooterRecyclerView) findViewById(R.id.recycler_view);
+recyclerView.setLayoutManager(new LinearLayoutManager(context));
+recyclerView.setAdapter(adapter);
 
-View headerView = LayoutInflater.from(context).inflate(R.layout.header, recyclerView.getHeaderParent(), false);
+View headerView = LayoutInflater.from(context).inflate(R.layout.header, recyclerView.getHeaderContainer(), false);
 recyclerView.addHeaderView(headerView);
 
-View footerView = LayoutInflater.from(context).inflate(R.layout.footer, recyclerView.getFooterParent(), false);
+View footerView = LayoutInflater.from(context).inflate(R.layout.footer, recyclerView.getFooterContainer(), false);
 recyclerView.addFooterView(footerView);
 ```
 
