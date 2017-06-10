@@ -7,7 +7,9 @@ import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
+import com.pnikosis.materialishprogress.ProgressWheel;
 import com.takwolf.android.hfrecyclerview.HeaderAndFooterRecyclerView;
 import com.takwolf.android.hfrecyclerviewdemo.R;
 
@@ -16,13 +18,17 @@ import java.lang.annotation.RetentionPolicy;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class LoadMoreFooter {
 
-    public static final int STATE_NORMAL = 0;
+    public static final int STATE_DISABLED = 0;
     public static final int STATE_LOADING = 1;
+    public static final int STATE_FINISHED = 2;
+    public static final int STATE_ENDLESS = 3;
+    public static final int STATE_FAILED = 4;
 
-    @IntDef({STATE_NORMAL, STATE_LOADING})
+    @IntDef({STATE_DISABLED, STATE_LOADING, STATE_FINISHED, STATE_ENDLESS, STATE_FAILED})
     @Retention(RetentionPolicy.SOURCE)
     public @interface State {}
 
@@ -32,11 +38,14 @@ public class LoadMoreFooter {
 
     }
 
-    @BindView(R.id.icon_loading)
-    View iconLoading;
+    @BindView(R.id.progress_wheel)
+    ProgressWheel progressWheel;
+
+    @BindView(R.id.tv_text)
+    TextView tvText;
 
     @State
-    private int state = STATE_NORMAL;
+    private int state = STATE_DISABLED;
 
     private final OnLoadMoreListener loadMoreListener;
 
@@ -46,6 +55,13 @@ public class LoadMoreFooter {
         recyclerView.addFooterView(footerView);
         ButterKnife.bind(this, footerView);
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                if (!ViewCompat.canScrollVertically(recyclerView, 1)) {
+                    checkLoadMore();
+                }
+            }
 
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -66,11 +82,40 @@ public class LoadMoreFooter {
         if (this.state != state) {
             this.state = state;
             switch (state) {
-                case STATE_NORMAL:
-                    iconLoading.setVisibility(View.INVISIBLE);
+                case STATE_DISABLED:
+                    progressWheel.setVisibility(View.GONE);
+                    progressWheel.stopSpinning();
+                    tvText.setVisibility(View.GONE);
+                    tvText.setText(null);
+                    tvText.setClickable(false);
                     break;
                 case STATE_LOADING:
-                    iconLoading.setVisibility(View.VISIBLE);
+                    progressWheel.setVisibility(View.VISIBLE);
+                    progressWheel.spin();
+                    tvText.setVisibility(View.GONE);
+                    tvText.setText(null);
+                    tvText.setClickable(false);
+                    break;
+                case STATE_FINISHED:
+                    progressWheel.setVisibility(View.GONE);
+                    progressWheel.stopSpinning();
+                    tvText.setVisibility(View.VISIBLE);
+                    tvText.setText(R.string.load_more_finished);
+                    tvText.setClickable(false);
+                    break;
+                case STATE_ENDLESS:
+                    progressWheel.setVisibility(View.GONE);
+                    progressWheel.stopSpinning();
+                    tvText.setVisibility(View.VISIBLE);
+                    tvText.setText(null);
+                    tvText.setClickable(true);
+                    break;
+                case STATE_FAILED:
+                    progressWheel.setVisibility(View.GONE);
+                    progressWheel.stopSpinning();
+                    tvText.setVisibility(View.VISIBLE);
+                    tvText.setText(R.string.load_more_failed);
+                    tvText.setClickable(true);
                     break;
                 default:
                     throw new AssertionError("Unknow load more state.");
@@ -79,10 +124,15 @@ public class LoadMoreFooter {
     }
 
     private void checkLoadMore() {
-        if (getState() == STATE_NORMAL) {
+        if (getState() == STATE_ENDLESS || getState() == STATE_FAILED) {
             setState(STATE_LOADING);
             loadMoreListener.onLoadMore();
         }
+    }
+
+    @OnClick(R.id.tv_text)
+    void onBtnTextClick() {
+        checkLoadMore();
     }
 
 }
