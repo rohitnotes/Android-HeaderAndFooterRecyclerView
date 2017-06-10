@@ -12,7 +12,9 @@ import com.takwolf.android.hfrecyclerviewdemo.adapter.LinearVerticalAdapter;
 import com.takwolf.android.hfrecyclerviewdemo.listener.NavigationFinishClickListener;
 import com.takwolf.android.hfrecyclerviewdemo.model.ApiClient;
 import com.takwolf.android.hfrecyclerviewdemo.util.HandlerUtils;
+import com.takwolf.android.hfrecyclerviewdemo.util.RefreshUtils;
 import com.takwolf.android.hfrecyclerviewdemo.viewholder.LoadMoreFooter;
+import com.takwolf.android.hfrecyclerviewdemo.viewholder.VerticalHeader;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,13 +44,14 @@ public class RefreshAndLoadMoreActivity extends AppCompatActivity implements Swi
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        new VerticalHeader(this, recyclerView);
         loadMoreFooter = new LoadMoreFooter(this, recyclerView, this);
 
         adapter = new LinearVerticalAdapter(this);
-        adapter.getIllustList().addAll(ApiClient.buildIllustList());
         recyclerView.setAdapter(adapter);
 
         refreshLayout.setOnRefreshListener(this);
+        RefreshUtils.refreshCompat(refreshLayout, this);
     }
 
     @Override
@@ -61,6 +64,7 @@ public class RefreshAndLoadMoreActivity extends AppCompatActivity implements Swi
                 adapter.getIllustList().addAll(ApiClient.buildIllustList());
                 adapter.notifyDataSetChanged();
                 refreshLayout.setRefreshing(false);
+                loadMoreFooter.setState(LoadMoreFooter.STATE_ENDLESS);
             }
 
         }, 1000);
@@ -75,7 +79,7 @@ public class RefreshAndLoadMoreActivity extends AppCompatActivity implements Swi
                 int startPosition = adapter.getItemCount();
                 adapter.getIllustList().addAll(ApiClient.buildIllustList());
                 adapter.notifyItemRangeInserted(startPosition, ApiClient.PAGE_SIZE);
-                loadMoreFooter.setState(LoadMoreFooter.STATE_NORMAL);
+                loadMoreFooter.setState(adapter.getItemCount() >= 200 ? LoadMoreFooter.STATE_FINISHED : LoadMoreFooter.STATE_ENDLESS);
             }
 
         }, 1000);
