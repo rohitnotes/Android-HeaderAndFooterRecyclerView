@@ -12,7 +12,6 @@ import com.takwolf.android.hfrecyclerviewdemo.adapter.LinearVerticalAdapter;
 import com.takwolf.android.hfrecyclerviewdemo.listener.NavigationFinishClickListener;
 import com.takwolf.android.hfrecyclerviewdemo.model.ApiClient;
 import com.takwolf.android.hfrecyclerviewdemo.util.HandlerUtils;
-import com.takwolf.android.hfrecyclerviewdemo.util.RefreshUtils;
 import com.takwolf.android.hfrecyclerviewdemo.viewholder.LoadMoreFooter;
 import com.takwolf.android.hfrecyclerviewdemo.viewholder.VerticalHeader;
 
@@ -50,8 +49,10 @@ public class RefreshAndLoadMoreActivity extends AppCompatActivity implements Swi
         adapter = new LinearVerticalAdapter(this);
         recyclerView.setAdapter(adapter);
 
+        refreshLayout.setColorSchemeResources(R.color.color_accent);
         refreshLayout.setOnRefreshListener(this);
-        RefreshUtils.refreshCompat(refreshLayout, this);
+        refreshLayout.setRefreshing(true);
+        onRefresh();
     }
 
     @Override
