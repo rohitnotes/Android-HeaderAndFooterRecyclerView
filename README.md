@@ -20,7 +20,7 @@ Let RecyclerView support add HeaderView and FooterView.
 
 示例工程中包含了所有布局类型的使用范例，以及一个下拉刷新和加载更多效果的实现范例。
 
-请在[这里](https://fir.im/hfrecyclerview)下载示例程序，或者运行示例工程以便查看更多演示。
+请在[这里](https://fir.im/hfrecyclerview)下载示例程序。
 
 ## Usage ##
 
