@@ -37,7 +37,7 @@ public class ControllerViewHolder {
     @OnClick(R.id.btn_remove_header)
     void onBtnRemoveHeader() {
         if (recyclerView.getHeaderViewCount() > 0) {
-            recyclerView.removeHeaderView(0);
+            recyclerView.removeHeaderView(recyclerView.getHeaderViewCount() - 1);
         }
     }
 
@@ -53,7 +53,7 @@ public class ControllerViewHolder {
     @OnClick(R.id.btn_remove_footer)
     void onBtnRemoveFooterClick() {
         if (recyclerView.getFooterViewCount() > 0) {
-            recyclerView.removeFooterView(0);
+            recyclerView.removeFooterView(recyclerView.getFooterViewCount() - 1);
         }
     }
 
