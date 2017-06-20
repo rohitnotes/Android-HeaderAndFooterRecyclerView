@@ -34,7 +34,8 @@ public class StaggeredHorizontalActivity extends AppCompatActivity {
 
         new ControllerViewHolder(this, recyclerView, ControllerViewHolder.ORIENTATION_HORIZONTAL);
 
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.HORIZONTAL));
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.HORIZONTAL);
+        recyclerView.setLayoutManager(layoutManager);
         StaggeredHorizontalAdapter adapter = new StaggeredHorizontalAdapter(this);
         adapter.getIllustList().addAll(ApiClient.buildIllustList());
         recyclerView.setAdapter(adapter);
