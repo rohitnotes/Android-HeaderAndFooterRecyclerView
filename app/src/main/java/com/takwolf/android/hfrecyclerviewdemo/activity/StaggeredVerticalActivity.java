@@ -11,6 +11,8 @@ import com.takwolf.android.hfrecyclerviewdemo.adapter.StaggeredVerticalAdapter;
 import com.takwolf.android.hfrecyclerviewdemo.listener.NavigationFinishClickListener;
 import com.takwolf.android.hfrecyclerviewdemo.model.ApiClient;
 import com.takwolf.android.hfrecyclerviewdemo.viewholder.ControllerViewHolder;
+import com.takwolf.android.hfrecyclerviewdemo.viewholder.VerticalFooter;
+import com.takwolf.android.hfrecyclerviewdemo.viewholder.VerticalHeader;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,6 +38,12 @@ public class StaggeredVerticalActivity extends AppCompatActivity {
 
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
+
+        new VerticalHeader(this, recyclerView);
+        new VerticalHeader(this, recyclerView);
+        new VerticalFooter(this, recyclerView);
+        new VerticalFooter(this, recyclerView);
+
         StaggeredVerticalAdapter adapter = new StaggeredVerticalAdapter(this);
         adapter.getIllustList().addAll(ApiClient.buildIllustList());
         recyclerView.setAdapter(adapter);

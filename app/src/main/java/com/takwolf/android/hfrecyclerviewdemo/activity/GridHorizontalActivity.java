@@ -12,6 +12,8 @@ import com.takwolf.android.hfrecyclerviewdemo.adapter.GridHorizontalAdapter;
 import com.takwolf.android.hfrecyclerviewdemo.listener.NavigationFinishClickListener;
 import com.takwolf.android.hfrecyclerviewdemo.model.ApiClient;
 import com.takwolf.android.hfrecyclerviewdemo.viewholder.ControllerViewHolder;
+import com.takwolf.android.hfrecyclerviewdemo.viewholder.HorizontalFooter;
+import com.takwolf.android.hfrecyclerviewdemo.viewholder.HorizontalHeader;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,6 +39,12 @@ public class GridHorizontalActivity extends AppCompatActivity {
 
         GridLayoutManager layoutManager = new GridLayoutManager(this, 3, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
+
+        new HorizontalHeader(this, recyclerView);
+        new HorizontalHeader(this, recyclerView);
+        new HorizontalFooter(this, recyclerView);
+        new HorizontalFooter(this, recyclerView);
+
         GridHorizontalAdapter adapter = new GridHorizontalAdapter(this);
         adapter.getIllustList().addAll(ApiClient.buildIllustList());
         recyclerView.setAdapter(adapter);

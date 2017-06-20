@@ -11,6 +11,8 @@ import com.takwolf.android.hfrecyclerviewdemo.adapter.StaggeredHorizontalAdapter
 import com.takwolf.android.hfrecyclerviewdemo.listener.NavigationFinishClickListener;
 import com.takwolf.android.hfrecyclerviewdemo.model.ApiClient;
 import com.takwolf.android.hfrecyclerviewdemo.viewholder.ControllerViewHolder;
+import com.takwolf.android.hfrecyclerviewdemo.viewholder.HorizontalFooter;
+import com.takwolf.android.hfrecyclerviewdemo.viewholder.HorizontalHeader;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,6 +38,12 @@ public class StaggeredHorizontalActivity extends AppCompatActivity {
 
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);
+
+        new HorizontalHeader(this, recyclerView);
+        new HorizontalHeader(this, recyclerView);
+        new HorizontalFooter(this, recyclerView);
+        new HorizontalFooter(this, recyclerView);
+
         StaggeredHorizontalAdapter adapter = new StaggeredHorizontalAdapter(this);
         adapter.getIllustList().addAll(ApiClient.buildIllustList());
         recyclerView.setAdapter(adapter);

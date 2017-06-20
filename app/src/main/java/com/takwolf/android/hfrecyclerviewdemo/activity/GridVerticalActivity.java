@@ -12,6 +12,8 @@ import com.takwolf.android.hfrecyclerviewdemo.listener.CustomSpanSizeLookup;
 import com.takwolf.android.hfrecyclerviewdemo.listener.NavigationFinishClickListener;
 import com.takwolf.android.hfrecyclerviewdemo.model.ApiClient;
 import com.takwolf.android.hfrecyclerviewdemo.viewholder.ControllerViewHolder;
+import com.takwolf.android.hfrecyclerviewdemo.viewholder.VerticalFooter;
+import com.takwolf.android.hfrecyclerviewdemo.viewholder.VerticalHeader;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,6 +40,12 @@ public class GridVerticalActivity extends AppCompatActivity {
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         layoutManager.setSpanSizeLookup(new CustomSpanSizeLookup(layoutManager, recyclerView.getProxyAdapter()));
         recyclerView.setLayoutManager(layoutManager);
+
+        new VerticalHeader(this, recyclerView);
+        new VerticalHeader(this, recyclerView);
+        new VerticalFooter(this, recyclerView);
+        new VerticalFooter(this, recyclerView);
+
         GridVerticalAdapter adapter = new GridVerticalAdapter(this);
         adapter.getIllustList().addAll(ApiClient.buildIllustList());
         recyclerView.setAdapter(adapter);
