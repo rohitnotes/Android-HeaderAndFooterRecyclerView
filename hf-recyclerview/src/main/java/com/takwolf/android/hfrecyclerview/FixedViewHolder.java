@@ -5,8 +5,8 @@ import android.view.View;
 
 public final class FixedViewHolder extends RecyclerView.ViewHolder {
 
-    public static final int TYPE_HEADER = -1;
-    public static final int TYPE_FOOTER = -2;
+    public static final int VIEW_TYPE_HEADER = -1;
+    public static final int VIEW_TYPE_FOOTER = -2;
 
     FixedViewHolder(View itemView) {
         super(itemView);

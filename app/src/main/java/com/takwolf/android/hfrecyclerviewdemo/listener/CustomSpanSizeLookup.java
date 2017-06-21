@@ -20,7 +20,7 @@ public final class CustomSpanSizeLookup extends GridLayoutManager.SpanSizeLookup
     @Override
     public int getSpanSize(int position) {
         int viewType = proxyAdapter.getItemViewType(position);
-        if (viewType == FixedViewHolder.TYPE_HEADER || viewType == FixedViewHolder.TYPE_FOOTER) {
+        if (viewType == FixedViewHolder.VIEW_TYPE_HEADER || viewType == FixedViewHolder.VIEW_TYPE_FOOTER) {
             return gridLayoutManager.getSpanCount();
         } else if (viewType == GridVerticalAdapter.TYPE_FULL_SPAN) {
             return gridLayoutManager.getSpanCount();

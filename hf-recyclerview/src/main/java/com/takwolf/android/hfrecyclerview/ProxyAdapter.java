@@ -125,16 +125,16 @@ public class ProxyAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemViewType(int position) {
         if (isHeaderViewHolderPosition(position)) {
-            return FixedViewHolder.TYPE_HEADER;
+            return FixedViewHolder.VIEW_TYPE_HEADER;
         } else if (isFooterViewHolderPosition(position)) {
-            return FixedViewHolder.TYPE_FOOTER;
+            return FixedViewHolder.VIEW_TYPE_FOOTER;
         } else {
             if (adapter != null) {
                 int viewType = adapter.getItemViewType(position - getPositionOffset());
-                if (viewType == FixedViewHolder.TYPE_HEADER) {
-                    throw new RuntimeException(FixedViewHolder.TYPE_HEADER + " is already used for view type Header, please replace another value.");
-                } else if (viewType == FixedViewHolder.TYPE_FOOTER) {
-                    throw new RuntimeException(FixedViewHolder.TYPE_FOOTER + " is already used for view type Footer, please replace another value.");
+                if (viewType == FixedViewHolder.VIEW_TYPE_HEADER) {
+                    throw new RuntimeException(FixedViewHolder.VIEW_TYPE_HEADER + " is already used for view type Header, please replace another value.");
+                } else if (viewType == FixedViewHolder.VIEW_TYPE_FOOTER) {
+                    throw new RuntimeException(FixedViewHolder.VIEW_TYPE_FOOTER + " is already used for view type Footer, please replace another value.");
                 } else {
                     return viewType;
                 }
@@ -147,9 +147,9 @@ public class ProxyAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
-            case FixedViewHolder.TYPE_HEADER:
+            case FixedViewHolder.VIEW_TYPE_HEADER:
                 return new FixedViewHolder(recyclerView.getHeaderContainer());
-            case FixedViewHolder.TYPE_FOOTER:
+            case FixedViewHolder.VIEW_TYPE_FOOTER:
                 return new FixedViewHolder(recyclerView.getFooterContainer());
             default:
                 if (adapter != null) {
@@ -162,9 +162,9 @@ public class ProxyAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder.getItemViewType() == FixedViewHolder.TYPE_HEADER) {
+        if (holder.getItemViewType() == FixedViewHolder.VIEW_TYPE_HEADER) {
             recyclerView.adjustFixedViewContainerLayoutParamsAndOrientation(recyclerView.getHeaderContainer());
-        } else if (holder.getItemViewType() == FixedViewHolder.TYPE_FOOTER) {
+        } else if (holder.getItemViewType() == FixedViewHolder.VIEW_TYPE_FOOTER) {
             recyclerView.adjustFixedViewContainerLayoutParamsAndOrientation(recyclerView.getFooterContainer());
         } else if (adapter != null) {
             //noinspection unchecked
@@ -174,9 +174,9 @@ public class ProxyAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position, List payloads) {
-        if (holder.getItemViewType() == FixedViewHolder.TYPE_HEADER) {
+        if (holder.getItemViewType() == FixedViewHolder.VIEW_TYPE_HEADER) {
             recyclerView.adjustFixedViewContainerLayoutParamsAndOrientation(recyclerView.getHeaderContainer());
-        } else if (holder.getItemViewType() == FixedViewHolder.TYPE_FOOTER) {
+        } else if (holder.getItemViewType() == FixedViewHolder.VIEW_TYPE_FOOTER) {
             recyclerView.adjustFixedViewContainerLayoutParamsAndOrientation(recyclerView.getFooterContainer());
         } else if (adapter != null) {
             //noinspection unchecked
@@ -195,7 +195,7 @@ public class ProxyAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onViewRecycled(RecyclerView.ViewHolder holder) {
-        if (adapter != null && holder.getItemViewType() != FixedViewHolder.TYPE_HEADER && holder.getItemViewType() != FixedViewHolder.TYPE_FOOTER) {
+        if (adapter != null && holder.getItemViewType() != FixedViewHolder.VIEW_TYPE_HEADER && holder.getItemViewType() != FixedViewHolder.VIEW_TYPE_FOOTER) {
             //noinspection unchecked
             adapter.onViewRecycled(holder);
         }
@@ -204,7 +204,7 @@ public class ProxyAdapter extends RecyclerView.Adapter {
     @Override
     public boolean onFailedToRecycleView(RecyclerView.ViewHolder holder) {
         //noinspection SimplifiableIfStatement
-        if (adapter != null && holder.getItemViewType() != FixedViewHolder.TYPE_HEADER && holder.getItemViewType() != FixedViewHolder.TYPE_FOOTER) {
+        if (adapter != null && holder.getItemViewType() != FixedViewHolder.VIEW_TYPE_HEADER && holder.getItemViewType() != FixedViewHolder.VIEW_TYPE_FOOTER) {
             //noinspection unchecked
             return adapter.onFailedToRecycleView(holder);
         } else {
@@ -214,7 +214,7 @@ public class ProxyAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
-        if (adapter != null && holder.getItemViewType() != FixedViewHolder.TYPE_HEADER && holder.getItemViewType() != FixedViewHolder.TYPE_FOOTER) {
+        if (adapter != null && holder.getItemViewType() != FixedViewHolder.VIEW_TYPE_HEADER && holder.getItemViewType() != FixedViewHolder.VIEW_TYPE_FOOTER) {
             //noinspection unchecked
             adapter.onViewAttachedToWindow(holder);
         }
@@ -222,7 +222,7 @@ public class ProxyAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onViewDetachedFromWindow(RecyclerView.ViewHolder holder) {
-        if (adapter != null && holder.getItemViewType() != FixedViewHolder.TYPE_HEADER && holder.getItemViewType() != FixedViewHolder.TYPE_FOOTER) {
+        if (adapter != null && holder.getItemViewType() != FixedViewHolder.VIEW_TYPE_HEADER && holder.getItemViewType() != FixedViewHolder.VIEW_TYPE_FOOTER) {
             //noinspection unchecked
             adapter.onViewDetachedFromWindow(holder);
         }
