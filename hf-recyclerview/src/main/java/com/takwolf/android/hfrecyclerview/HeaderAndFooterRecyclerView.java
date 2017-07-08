@@ -1,6 +1,7 @@
 package com.takwolf.android.hfrecyclerview;
 
 import android.content.Context;
+import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
@@ -26,7 +27,7 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
         this(context, attrs, 0);
     }
 
-    public HeaderAndFooterRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyle) {
+    public HeaderAndFooterRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyle) {
         super(context, attrs, defStyle);
         headerContainer = new LinearLayout(context);
         footerContainer = new LinearLayout(context);
