@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-public class ProxyAdapter extends RecyclerView.Adapter {
+public final class ProxyAdapter extends RecyclerView.Adapter {
 
     private final HeaderAndFooterRecyclerView recyclerView;
 
