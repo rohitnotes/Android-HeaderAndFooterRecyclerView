@@ -11,7 +11,7 @@ import com.takwolf.android.hfrecyclerviewdemo.R;
 import com.takwolf.android.hfrecyclerviewdemo.adapter.LinearVerticalAdapter;
 import com.takwolf.android.hfrecyclerviewdemo.listener.NavigationFinishClickListener;
 import com.takwolf.android.hfrecyclerviewdemo.model.ApiClient;
-import com.takwolf.android.hfrecyclerviewdemo.viewholder.ControllerViewHolder;
+import com.takwolf.android.hfrecyclerviewdemo.viewholder.OptionViewHolder;
 import com.takwolf.android.hfrecyclerviewdemo.viewholder.VerticalFooter;
 import com.takwolf.android.hfrecyclerviewdemo.viewholder.VerticalHeader;
 
@@ -35,7 +35,7 @@ public class LinearVerticalActivity extends AppCompatActivity {
         toolbar.setTitle("Linear Vertical");
         toolbar.setNavigationOnClickListener(new NavigationFinishClickListener(this));
 
-        new ControllerViewHolder(this, recyclerView, ControllerViewHolder.ORIENTATION_VERTICAL);
+        new OptionViewHolder(this, recyclerView, OptionViewHolder.ORIENTATION_VERTICAL);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);

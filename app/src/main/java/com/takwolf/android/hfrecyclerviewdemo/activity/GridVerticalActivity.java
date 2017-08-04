@@ -12,7 +12,7 @@ import com.takwolf.android.hfrecyclerviewdemo.adapter.GridVerticalAdapter;
 import com.takwolf.android.hfrecyclerviewdemo.listener.CustomSpanSizeLookup;
 import com.takwolf.android.hfrecyclerviewdemo.listener.NavigationFinishClickListener;
 import com.takwolf.android.hfrecyclerviewdemo.model.ApiClient;
-import com.takwolf.android.hfrecyclerviewdemo.viewholder.ControllerViewHolder;
+import com.takwolf.android.hfrecyclerviewdemo.viewholder.OptionViewHolder;
 import com.takwolf.android.hfrecyclerviewdemo.viewholder.VerticalFooter;
 import com.takwolf.android.hfrecyclerviewdemo.viewholder.VerticalHeader;
 
@@ -36,7 +36,7 @@ public class GridVerticalActivity extends AppCompatActivity {
         toolbar.setTitle("Grid Vertical");
         toolbar.setNavigationOnClickListener(new NavigationFinishClickListener(this));
 
-        new ControllerViewHolder(this, recyclerView, ControllerViewHolder.ORIENTATION_VERTICAL);
+        new OptionViewHolder(this, recyclerView, OptionViewHolder.ORIENTATION_VERTICAL);
 
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         layoutManager.setSpanSizeLookup(new CustomSpanSizeLookup(layoutManager, recyclerView.getProxyAdapter()));

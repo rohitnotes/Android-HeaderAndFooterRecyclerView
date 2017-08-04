@@ -9,7 +9,7 @@ import com.takwolf.android.hfrecyclerviewdemo.R;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ControllerViewHolder {
+public class OptionViewHolder {
 
     public static final int ORIENTATION_VERTICAL = 0;
     public static final int ORIENTATION_HORIZONTAL = 1;
@@ -18,7 +18,7 @@ public class ControllerViewHolder {
     private final HeaderAndFooterRecyclerView recyclerView;
     private final int orientation;
 
-    public ControllerViewHolder(@NonNull Activity activity, @NonNull HeaderAndFooterRecyclerView recyclerView, int orientation) {
+    public OptionViewHolder(@NonNull Activity activity, @NonNull HeaderAndFooterRecyclerView recyclerView, int orientation) {
         this.activity = activity;
         this.recyclerView = recyclerView;
         this.orientation = orientation;

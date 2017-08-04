@@ -12,7 +12,7 @@ import com.takwolf.android.hfrecyclerviewdemo.R;
 import com.takwolf.android.hfrecyclerviewdemo.adapter.GridHorizontalAdapter;
 import com.takwolf.android.hfrecyclerviewdemo.listener.NavigationFinishClickListener;
 import com.takwolf.android.hfrecyclerviewdemo.model.ApiClient;
-import com.takwolf.android.hfrecyclerviewdemo.viewholder.ControllerViewHolder;
+import com.takwolf.android.hfrecyclerviewdemo.viewholder.OptionViewHolder;
 import com.takwolf.android.hfrecyclerviewdemo.viewholder.HorizontalFooter;
 import com.takwolf.android.hfrecyclerviewdemo.viewholder.HorizontalHeader;
 
@@ -36,7 +36,7 @@ public class GridHorizontalActivity extends AppCompatActivity {
         toolbar.setTitle("Grid Horizontal");
         toolbar.setNavigationOnClickListener(new NavigationFinishClickListener(this));
 
-        new ControllerViewHolder(this, recyclerView, ControllerViewHolder.ORIENTATION_HORIZONTAL);
+        new OptionViewHolder(this, recyclerView, OptionViewHolder.ORIENTATION_HORIZONTAL);
 
         GridLayoutManager layoutManager = new GridLayoutManager(this, 3, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
