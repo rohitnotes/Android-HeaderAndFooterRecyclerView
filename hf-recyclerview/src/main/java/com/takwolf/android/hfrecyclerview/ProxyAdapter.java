@@ -25,6 +25,11 @@ public final class ProxyAdapter extends RecyclerView.Adapter {
         }
 
         @Override
+        public void onItemRangeChanged(int positionStart, int itemCount, Object payload) {
+            notifyItemRangeChanged(positionStart + getPositionOffset(), itemCount, payload);
+        }
+
+        @Override
         public void onItemRangeInserted(int positionStart, int itemCount) {
             notifyItemRangeInserted(positionStart + getPositionOffset(), itemCount);
         }
