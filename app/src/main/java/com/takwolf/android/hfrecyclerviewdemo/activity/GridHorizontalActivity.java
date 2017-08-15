@@ -12,9 +12,9 @@ import com.takwolf.android.hfrecyclerviewdemo.R;
 import com.takwolf.android.hfrecyclerviewdemo.adapter.GridHorizontalAdapter;
 import com.takwolf.android.hfrecyclerviewdemo.listener.NavigationFinishClickListener;
 import com.takwolf.android.hfrecyclerviewdemo.model.ApiClient;
-import com.takwolf.android.hfrecyclerviewdemo.viewholder.OptionViewHolder;
 import com.takwolf.android.hfrecyclerviewdemo.viewholder.HorizontalFooter;
 import com.takwolf.android.hfrecyclerviewdemo.viewholder.HorizontalHeader;
+import com.takwolf.android.hfrecyclerviewdemo.viewholder.OptionViewHolder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
