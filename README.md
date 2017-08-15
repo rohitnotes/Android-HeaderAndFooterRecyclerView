@@ -27,7 +27,7 @@ Let RecyclerView support add HeaderView and FooterView.
 ### Gradle ###
 
 ``` gradle
-compile 'com.takwolf.android:hf-recyclerview:0.1.0'
+compile 'com.takwolf.android:hf-recyclerview:0.1.1'
 ```
 
 ### Layout ###
