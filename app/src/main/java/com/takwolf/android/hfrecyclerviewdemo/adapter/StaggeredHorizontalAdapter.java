@@ -59,7 +59,7 @@ public class StaggeredHorizontalAdapter extends RecyclerView.Adapter<StaggeredHo
 
         private Illust illust;
 
-        ViewHolder(View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

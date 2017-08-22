@@ -71,7 +71,7 @@ public class GridVerticalAdapter extends RecyclerView.Adapter<GridVerticalAdapte
 
         private Illust illust;
 
-        ViewHolder(View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

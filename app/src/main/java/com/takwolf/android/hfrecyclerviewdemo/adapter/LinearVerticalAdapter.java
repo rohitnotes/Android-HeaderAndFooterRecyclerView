@@ -59,7 +59,7 @@ public class LinearVerticalAdapter extends RecyclerView.Adapter<LinearVerticalAd
 
         private Illust illust;
 
-        ViewHolder(View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
