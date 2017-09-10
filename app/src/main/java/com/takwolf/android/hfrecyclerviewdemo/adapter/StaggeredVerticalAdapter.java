@@ -44,44 +44,49 @@ public class StaggeredVerticalAdapter extends RecyclerView.Adapter<StaggeredVert
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(inflater.inflate(R.layout.item_staggered_vertical, parent, false));
+        return new ViewHolder(activity, inflater.inflate(R.layout.item_staggered_vertical, parent, false));
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.update(illustList.get(position));
+        holder.update(this, position);
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.img_thumb)
         ImageView imgThumb;
 
+        private final Activity activity;
+
+        private StaggeredVerticalAdapter adapter;
         private Illust illust;
 
-        ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull Activity activity, @NonNull View itemView) {
             super(itemView);
+            this.activity = activity;
             ButterKnife.bind(this, itemView);
         }
 
-        void update(@NonNull Illust illust) {
-            this.illust = illust;
+        void update(@NonNull StaggeredVerticalAdapter adapter, int position) {
+            this.adapter = adapter;
+            illust = adapter.getIllustList().get(position);
             Glide.with(activity).load(illust.getImage()).placeholder(R.drawable.image_placeholder).into(imgThumb);
         }
 
         @OnClick(R.id.btn_item)
         void onBtnItemClick() {
-            int position = illustList.indexOf(illust);
-            int newPosition = Math.abs(RandomUtils.random.nextInt()) % illustList.size();
-            illustList.add(newPosition, illustList.remove(position));
-            notifyItemMoved(position, newPosition);
+            int position = adapter.getIllustList().indexOf(illust);
+            int newPosition = Math.abs(RandomUtils.random.nextInt()) % adapter.getIllustList().size();
+            adapter.getIllustList().add(newPosition, adapter.getIllustList().remove(position));
+            adapter.notifyItemMoved(position, newPosition);
         }
 
         @OnLongClick(R.id.btn_item)
         boolean onBtnItemLongClick() {
-            int position = illustList.indexOf(illust);
-            illustList.remove(position);
-            notifyItemRemoved(position);
+            int position = adapter.getIllustList().indexOf(illust);
+            adapter.getIllustList().remove(position);
+            adapter.notifyItemRemoved(position);
             return true;
         }
 
