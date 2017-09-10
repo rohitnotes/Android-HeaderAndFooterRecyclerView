@@ -39,7 +39,6 @@ public class RefreshAndLoadMoreActivity extends AppCompatActivity implements Swi
         setContentView(R.layout.activity_refresh_and_load_more);
         ButterKnife.bind(this);
 
-        toolbar.setTitle("Refresh and Load more");
         toolbar.setNavigationOnClickListener(new NavigationFinishClickListener(this));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
