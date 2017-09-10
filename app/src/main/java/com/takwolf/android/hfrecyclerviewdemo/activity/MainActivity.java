@@ -49,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, StaggeredHorizontalActivity.class));
     }
 
+    @OnClick(R.id.btn_multi_recycler_view)
+    void onBtnMultiRecyclerViewClick() {
+        startActivity(new Intent(this, MultiRecyclerViewActivity.class));
+    }
+
     @OnClick(R.id.btn_refresh_and_load_more)
     void onBtnRefreshAndLoadMoreClick() {
         startActivity(new Intent(this, RefreshAndLoadMoreActivity.class));

@@ -73,6 +73,14 @@
                 android:textAllCaps="false" />
 
             <Button
+                android:id="@+id/btn_multi_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:text="Multi RecyclerView"
+                android:textAllCaps="false" />
+
+            <Button
                 android:id="@+id/btn_refresh_and_load_more"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

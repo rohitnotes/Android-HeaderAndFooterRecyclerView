@@ -51,6 +51,11 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
 
         <activity
+            android:name=".activity.MultiRecyclerViewActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
+
+        <activity
             android:name=".activity.RefreshAndLoadMoreActivity"
             android:screenOrientation="portrait"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
