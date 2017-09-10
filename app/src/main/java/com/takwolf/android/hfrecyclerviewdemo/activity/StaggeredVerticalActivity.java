@@ -29,7 +29,7 @@ public class StaggeredVerticalActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recycler);
+        setContentView(R.layout.activity_recycler_view);
         ButterKnife.bind(this);
 
         toolbar.setTitle("Staggered Vertical");
