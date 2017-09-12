@@ -178,17 +178,26 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
 
     @Override
     public void setLayoutManager(LayoutManager layoutManager) {
+        LayoutManager oldLayoutManager = getLayoutManager();
+        if (oldLayoutManager instanceof GridLayoutManager) {
+            GridLayoutManager gridLayoutManager = (GridLayoutManager) oldLayoutManager;
+            GridLayoutManager.SpanSizeLookup spanSizeLookup = gridLayoutManager.getSpanSizeLookup();
+            if (spanSizeLookup instanceof FixedViewSpanSizeLookup) {
+                gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.DefaultSpanSizeLookup());
+                ((FixedViewSpanSizeLookup) spanSizeLookup).detach();
+            }
+        }
         if (layoutManager instanceof GridLayoutManager) {
             GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
             FixedViewSpanSizeLookup fixedViewSpanSizeLookup = null;
-            if (gridLayoutManager.getSpanSizeLookup() == null || gridLayoutManager.getSpanSizeLookup().getClass() == GridLayoutManager.DefaultSpanSizeLookup.class) {
+            if (gridLayoutManager.getSpanSizeLookup() == null || gridLayoutManager.getSpanSizeLookup() instanceof GridLayoutManager.DefaultSpanSizeLookup) {
                 fixedViewSpanSizeLookup = new FixedViewSpanSizeLookup();
                 gridLayoutManager.setSpanSizeLookup(fixedViewSpanSizeLookup);
-            } else if (gridLayoutManager.getSpanSizeLookup().getClass() == FixedViewSpanSizeLookup.class) {
+            } else if (gridLayoutManager.getSpanSizeLookup() instanceof FixedViewSpanSizeLookup) {
                 fixedViewSpanSizeLookup = (FixedViewSpanSizeLookup) gridLayoutManager.getSpanSizeLookup();
             }
             if (fixedViewSpanSizeLookup != null) {
-                fixedViewSpanSizeLookup.setTargets(gridLayoutManager, proxyAdapter);
+                fixedViewSpanSizeLookup.attach(gridLayoutManager, proxyAdapter);
             }
         }
         super.setLayoutManager(layoutManager);
