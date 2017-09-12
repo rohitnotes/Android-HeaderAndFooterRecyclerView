@@ -233,4 +233,11 @@ public final class ProxyAdapter extends RecyclerView.Adapter {
         }
     }
 
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        if (this.recyclerView != recyclerView) {
+            throw new RuntimeException("ProxyAdapter can not be attached to other RecyclerView.");
+        }
+    }
+
 }
