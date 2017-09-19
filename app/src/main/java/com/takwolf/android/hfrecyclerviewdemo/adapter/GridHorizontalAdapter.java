@@ -44,12 +44,12 @@ public class GridHorizontalAdapter extends RecyclerView.Adapter<GridHorizontalAd
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(activity, inflater.inflate(R.layout.item_grid_horizontal, parent, false));
+        return new ViewHolder(inflater.inflate(R.layout.item_grid_horizontal, parent, false), activity);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.update(this, position);
+        holder.onBind(this, position);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -62,13 +62,13 @@ public class GridHorizontalAdapter extends RecyclerView.Adapter<GridHorizontalAd
         private GridHorizontalAdapter adapter;
         private Illust illust;
 
-        ViewHolder(@NonNull Activity activity, @NonNull View itemView) {
+        ViewHolder(@NonNull View itemView, @NonNull Activity activity) {
             super(itemView);
             this.activity = activity;
             ButterKnife.bind(this, itemView);
         }
 
-        void update(@NonNull GridHorizontalAdapter adapter, int position) {
+        void onBind(@NonNull GridHorizontalAdapter adapter, int position) {
             this.adapter = adapter;
             illust = adapter.getIllustList().get(position);
             Glide.with(activity).load(illust.getImage()).placeholder(R.drawable.image_placeholder).into(imgThumb);
