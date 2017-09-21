@@ -29,6 +29,7 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
 
     public HeaderAndFooterRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyle) {
         super(context, attrs, defStyle);
+        inspectLayoutManager(getLayoutManager());
         headerContainer = new LinearLayout(context);
         footerContainer = new LinearLayout(context);
         proxyAdapter = new ProxyAdapter(this);
@@ -176,31 +177,40 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
         }
     }
 
-    @Override
-    public void setLayoutManager(LayoutManager layoutManager) {
-        LayoutManager oldLayoutManager = getLayoutManager();
-        if (oldLayoutManager instanceof GridLayoutManager) {
-            GridLayoutManager gridLayoutManager = (GridLayoutManager) oldLayoutManager;
+    private void inspectLayoutManager(LayoutManager layoutManager) {
+        if (layoutManager instanceof GridLayoutManager) {
+            GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
+            GridLayoutManager.SpanSizeLookup spanSizeLookup = gridLayoutManager.getSpanSizeLookup();
+            FixedViewSpanSizeLookup fixedViewSpanSizeLookup = null;
+            if (spanSizeLookup == null || spanSizeLookup instanceof GridLayoutManager.DefaultSpanSizeLookup) {
+                fixedViewSpanSizeLookup = new FixedViewSpanSizeLookup();
+                gridLayoutManager.setSpanSizeLookup(fixedViewSpanSizeLookup);
+            } else if (spanSizeLookup instanceof FixedViewSpanSizeLookup) {
+                fixedViewSpanSizeLookup = (FixedViewSpanSizeLookup) spanSizeLookup;
+            }
+            if (fixedViewSpanSizeLookup != null) {
+                fixedViewSpanSizeLookup.attach(gridLayoutManager, proxyAdapter);
+            }
+        }
+    }
+
+    private void recoverLayoutManager(LayoutManager layoutManager) {
+        if (layoutManager instanceof GridLayoutManager) {
+            GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
             GridLayoutManager.SpanSizeLookup spanSizeLookup = gridLayoutManager.getSpanSizeLookup();
             if (spanSizeLookup instanceof FixedViewSpanSizeLookup) {
                 gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.DefaultSpanSizeLookup());
                 ((FixedViewSpanSizeLookup) spanSizeLookup).detach();
             }
         }
-        if (layoutManager instanceof GridLayoutManager) {
-            GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
-            FixedViewSpanSizeLookup fixedViewSpanSizeLookup = null;
-            if (gridLayoutManager.getSpanSizeLookup() == null || gridLayoutManager.getSpanSizeLookup() instanceof GridLayoutManager.DefaultSpanSizeLookup) {
-                fixedViewSpanSizeLookup = new FixedViewSpanSizeLookup();
-                gridLayoutManager.setSpanSizeLookup(fixedViewSpanSizeLookup);
-            } else if (gridLayoutManager.getSpanSizeLookup() instanceof FixedViewSpanSizeLookup) {
-                fixedViewSpanSizeLookup = (FixedViewSpanSizeLookup) gridLayoutManager.getSpanSizeLookup();
-            }
-            if (fixedViewSpanSizeLookup != null) {
-                fixedViewSpanSizeLookup.attach(gridLayoutManager, proxyAdapter);
-            }
-        }
+    }
+
+    @Override
+    public void setLayoutManager(LayoutManager layoutManager) {
+        LayoutManager oldLayoutManager = getLayoutManager();
+        inspectLayoutManager(layoutManager);
         super.setLayoutManager(layoutManager);
+        recoverLayoutManager(oldLayoutManager);
     }
 
     @NonNull
