@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.takwolf.android.hfrecyclerviewdemo.R;
+import com.takwolf.android.hfrecyclerviewdemo.model.GlideApp;
 import com.takwolf.android.hfrecyclerviewdemo.model.Illust;
 import com.takwolf.android.hfrecyclerviewdemo.util.RandomUtils;
 
@@ -71,7 +71,7 @@ public class LinearHorizontalAdapter extends RecyclerView.Adapter<LinearHorizont
         void onBind(@NonNull LinearHorizontalAdapter adapter, int position) {
             this.adapter = adapter;
             illust = adapter.getIllustList().get(position);
-            Glide.with(activity).load(illust.getImage()).placeholder(R.drawable.image_placeholder).into(imgThumb);
+            GlideApp.with(activity).load(illust.getImage()).placeholder(R.drawable.image_placeholder).into(imgThumb);
         }
 
         @OnClick(R.id.btn_item)
