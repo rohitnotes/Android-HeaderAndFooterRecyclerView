@@ -1,9 +1,9 @@
 # Android - HeaderAndFooterRecyclerView #
 
 [![Build Status](https://travis-ci.org/TakWolf/Android-HeaderAndFooterRecyclerView.svg?branch=master)](https://travis-ci.org/TakWolf/Android-HeaderAndFooterRecyclerView)
-[![Bintray](https://img.shields.io/bintray/v/takwolf/maven/Android-HeaderAndFooterRecyclerView.svg)](https://bintray.com/takwolf/maven/Android-HeaderAndFooterRecyclerView/_latestVersion)
+[![Bintray](https://api.bintray.com/packages/takwolf/maven/Android-HeaderAndFooterRecyclerView/images/download.svg)](https://bintray.com/takwolf/maven/Android-HeaderAndFooterRecyclerView/_latestVersion)
 [![Platform](https://img.shields.io/badge/platform-Android-green.svg)](https://www.android.com)
-[![API](https://img.shields.io/badge/API-9%2B-brightgreen.svg)](https://android-arsenal.com/api?level=9)
+[![API](https://img.shields.io/badge/API-14%2B-brightgreen.svg)](https://android-arsenal.com/api?level=14)
 [![License](https://img.shields.io/github/license/TakWolf/Android-HeaderAndFooterRecyclerView.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
 Let RecyclerView support add HeaderView and FooterView.
