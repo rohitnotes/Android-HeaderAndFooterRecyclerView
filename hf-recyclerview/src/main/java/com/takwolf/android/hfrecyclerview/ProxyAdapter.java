@@ -54,7 +54,7 @@ public final class ProxyAdapter extends RecyclerView.Adapter {
         this.recyclerView = recyclerView;
     }
 
-    RecyclerView.Adapter getAdapter() {
+    public RecyclerView.Adapter getAdapter() {
         return adapter;
     }
 
