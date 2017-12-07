@@ -150,6 +150,15 @@ public final class ProxyAdapter extends RecyclerView.Adapter {
     }
 
     @Override
+    public long getItemId(int position) {
+        if (adapter != null && !isHeaderViewHolderPosition(position) && !isFooterViewHolderPosition(position)) {
+            return adapter.getItemId(position - getPositionOffset());
+        } else {
+            return RecyclerView.NO_ID;
+        }
+    }
+
+    @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case FixedViewHolder.VIEW_TYPE_HEADER:
@@ -186,15 +195,6 @@ public final class ProxyAdapter extends RecyclerView.Adapter {
         } else if (adapter != null) {
             //noinspection unchecked
             adapter.onBindViewHolder(holder, position - getPositionOffset(), payloads);
-        }
-    }
-
-    @Override
-    public long getItemId(int position) {
-        if (adapter != null && !isHeaderViewHolderPosition(position) && !isFooterViewHolderPosition(position)) {
-            return adapter.getItemId(position - getPositionOffset());
-        } else {
-            return RecyclerView.NO_ID;
         }
     }
 
