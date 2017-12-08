@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import com.takwolf.android.hfrecyclerview.HeaderAndFooterRecyclerView;
@@ -39,6 +40,10 @@ public class MultiRecyclerViewActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         toolbar.setNavigationOnClickListener(new NavigationFinishClickListener(this));
+
+        RecyclerView.RecycledViewPool recycledViewPool = new RecyclerView.RecycledViewPool();
+        recyclerView0.setRecycledViewPool(recycledViewPool);
+        recyclerView1.setRecycledViewPool(recycledViewPool);
 
         recyclerView0.setLayoutManager(new LinearLayoutManager(this));
         recyclerView1.setLayoutManager(new LinearLayoutManager(this));
