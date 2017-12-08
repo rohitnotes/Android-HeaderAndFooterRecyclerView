@@ -1,7 +1,9 @@
 package com.takwolf.android.hfrecyclerview;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.List;
@@ -70,27 +72,35 @@ public final class ProxyAdapter extends RecyclerView.Adapter {
         }
     }
 
-    void notifyHeaderAdded() {
+    void notifyHeaderAdded(@NonNull View view, @Nullable Integer index) {
         if (recyclerView.getHeaderViewCount() == 1) {
             notifyItemInserted(0);
+        } else {
+            notifyItemChanged(0, new FixedViewUpdateInfo(FixedViewUpdateInfo.ACTION_ADD, view, index));
         }
     }
 
-    void notifyHeaderRemoved() {
+    void notifyHeaderRemoved(@NonNull View view, @Nullable Integer index) {
         if (recyclerView.getHeaderViewCount() == 0) {
             notifyItemRemoved(0);
+        } else {
+            notifyItemChanged(0, new FixedViewUpdateInfo(FixedViewUpdateInfo.ACTION_REMOVE, view, index));
         }
     }
 
-    void notifyFooterAdded() {
+    void notifyFooterAdded(@NonNull View view, @Nullable Integer index) {
         if (recyclerView.getFooterViewCount() == 1) {
             notifyItemInserted(getItemCount() - 1);
+        } else {
+            notifyItemChanged(getItemCount() - 1, new FixedViewUpdateInfo(FixedViewUpdateInfo.ACTION_ADD, view, index));
         }
     }
 
-    void notifyFooterRemoved() {
+    void notifyFooterRemoved(@NonNull View view, @Nullable Integer index) {
         if (recyclerView.getFooterViewCount() == 0) {
             notifyItemRemoved(getItemCount());
+        } else {
+            notifyItemChanged(getItemCount() - 1, new FixedViewUpdateInfo(FixedViewUpdateInfo.ACTION_REMOVE, view, index));
         }
     }
 
@@ -162,9 +172,9 @@ public final class ProxyAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case FixedViewHolder.VIEW_TYPE_HEADER:
-                return new FixedViewHolder(recyclerView.getHeaderContainer());
+                return FixedViewHolder.create(parent.getContext());
             case FixedViewHolder.VIEW_TYPE_FOOTER:
-                return new FixedViewHolder(recyclerView.getFooterContainer());
+                return FixedViewHolder.create(parent.getContext());
             default:
                 if (adapter != null) {
                     return adapter.onCreateViewHolder(parent, viewType);
@@ -177,9 +187,11 @@ public final class ProxyAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder.getItemViewType() == FixedViewHolder.VIEW_TYPE_HEADER) {
-            recyclerView.adjustFixedViewContainerLayoutParamsAndOrientation(recyclerView.getHeaderContainer());
+            FixedViewHolder fixedViewHolder = FixedViewHolder.assertType(holder);
+            fixedViewHolder.onBind(recyclerView, recyclerView.getHeaderViewList());
         } else if (holder.getItemViewType() == FixedViewHolder.VIEW_TYPE_FOOTER) {
-            recyclerView.adjustFixedViewContainerLayoutParamsAndOrientation(recyclerView.getFooterContainer());
+            FixedViewHolder fixedViewHolder = FixedViewHolder.assertType(holder);
+            fixedViewHolder.onBind(recyclerView, recyclerView.getFooterViewList());
         } else if (adapter != null) {
             //noinspection unchecked
             adapter.onBindViewHolder(holder, position - getPositionOffset());
@@ -188,10 +200,18 @@ public final class ProxyAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position, List payloads) {
-        if (holder.getItemViewType() == FixedViewHolder.VIEW_TYPE_HEADER) {
-            recyclerView.adjustFixedViewContainerLayoutParamsAndOrientation(recyclerView.getHeaderContainer());
-        } else if (holder.getItemViewType() == FixedViewHolder.VIEW_TYPE_FOOTER) {
-            recyclerView.adjustFixedViewContainerLayoutParamsAndOrientation(recyclerView.getFooterContainer());
+        if (holder.getItemViewType() == FixedViewHolder.VIEW_TYPE_HEADER || holder.getItemViewType() == FixedViewHolder.VIEW_TYPE_FOOTER) {
+            if (payloads.isEmpty()) {
+                onBindViewHolder(holder, position);
+            } else {
+                FixedViewHolder fixedViewHolder = FixedViewHolder.assertType(holder);
+                for (Object payload : payloads) {
+                    if (payload instanceof FixedViewUpdateInfo) {
+                        FixedViewUpdateInfo updateInfo = (FixedViewUpdateInfo) payload;
+                        fixedViewHolder.onBindWithUpdateInfo(recyclerView, updateInfo);
+                    }
+                }
+            }
         } else if (adapter != null) {
             //noinspection unchecked
             adapter.onBindViewHolder(holder, position - getPositionOffset(), payloads);

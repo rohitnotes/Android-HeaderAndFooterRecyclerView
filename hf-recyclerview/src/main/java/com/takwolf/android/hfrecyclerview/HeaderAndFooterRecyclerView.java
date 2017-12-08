@@ -5,18 +5,18 @@ import android.support.annotation.AttrRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HeaderAndFooterRecyclerView extends RecyclerView {
 
-    private final LinearLayout headerContainer;
-    private final LinearLayout footerContainer;
+    private final List<View> headerViewList = new ArrayList<>();
+    private final List<View> footerViewList = new ArrayList<>();
     private final ProxyAdapter proxyAdapter;
 
     public HeaderAndFooterRecyclerView(@NonNull Context context) {
@@ -30,151 +30,85 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
     public HeaderAndFooterRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyle) {
         super(context, attrs, defStyle);
         inspectLayoutManager(getLayoutManager());
-        headerContainer = new LinearLayout(context);
-        footerContainer = new LinearLayout(context);
         proxyAdapter = new ProxyAdapter(this);
         super.setAdapter(proxyAdapter);
     }
 
+    private LinearLayout getFixedViewContainer(@FixedViewHolder.ViewType int viewType) {
+        ViewHolder holder = getRecycledViewPool().getRecycledView(viewType);
+        if (holder == null) {
+            holder = proxyAdapter.createViewHolder(this, viewType);
+        }
+        getRecycledViewPool().putRecycledView(holder);
+        return FixedViewHolder.assertType(holder).getViewContainer();
+    }
+
     @NonNull
     public LinearLayout getHeaderContainer() {
-        return headerContainer;
-    }
-
-    public int getHeaderViewCount() {
-        return headerContainer.getChildCount();
-    }
-
-    public void addHeaderView(@NonNull View view) {
-        headerContainer.addView(view);
-        proxyAdapter.notifyHeaderAdded();
-    }
-
-    public void addHeaderView(@NonNull View view, int index) {
-        headerContainer.addView(view, index);
-        proxyAdapter.notifyHeaderAdded();
-    }
-
-    public void removeHeaderView(@NonNull View view) {
-        headerContainer.removeView(view);
-        proxyAdapter.notifyHeaderRemoved();
-    }
-
-    public void removeHeaderView(int index) {
-        headerContainer.removeViewAt(index);
-        proxyAdapter.notifyHeaderRemoved();
+        return getFixedViewContainer(FixedViewHolder.VIEW_TYPE_HEADER);
     }
 
     @NonNull
     public LinearLayout getFooterContainer() {
-        return footerContainer;
+        return getFixedViewContainer(FixedViewHolder.VIEW_TYPE_FOOTER);
+    }
+
+    @NonNull
+    List<View> getHeaderViewList() {
+        return headerViewList;
+    }
+
+    @NonNull
+    List<View> getFooterViewList() {
+        return footerViewList;
+    }
+
+    public int getHeaderViewCount() {
+        return headerViewList.size();
     }
 
     public int getFooterViewCount() {
-        return footerContainer.getChildCount();
+        return footerViewList.size();
+    }
+
+    public void addHeaderView(@NonNull View view) {
+        headerViewList.add(view);
+        proxyAdapter.notifyHeaderAdded(view, null);
+    }
+
+    public void addHeaderView(@NonNull View view, int index) {
+        headerViewList.add(index, view);
+        proxyAdapter.notifyHeaderAdded(view, index);
+    }
+
+    public void removeHeaderView(@NonNull View view) {
+        headerViewList.remove(view);
+        proxyAdapter.notifyHeaderRemoved(view, null);
+    }
+
+    public void removeHeaderView(int index) {
+        View view = headerViewList.remove(index);
+        proxyAdapter.notifyHeaderRemoved(view, index);
     }
 
     public void addFooterView(@NonNull View view) {
-        footerContainer.addView(view);
-        proxyAdapter.notifyFooterAdded();
+        footerViewList.add(view);
+        proxyAdapter.notifyFooterAdded(view, null);
     }
 
     public void addFooterView(@NonNull View view, int index) {
-        footerContainer.addView(view, index);
-        proxyAdapter.notifyFooterAdded();
+        footerViewList.add(index, view);
+        proxyAdapter.notifyFooterAdded(view, index);
     }
 
     public void removeFooterView(@NonNull View view) {
-        footerContainer.removeView(view);
-        proxyAdapter.notifyFooterRemoved();
+        footerViewList.remove(view);
+        proxyAdapter.notifyFooterRemoved(view, null);
     }
 
     public void removeFooterView(int index) {
-        footerContainer.removeViewAt(index);
-        proxyAdapter.notifyFooterRemoved();
-    }
-
-    void adjustFixedViewContainerLayoutParamsAndOrientation(@NonNull LinearLayout fixedViewContainer) {
-        if (getLayoutManager() instanceof GridLayoutManager) {
-            GridLayoutManager gridLayoutManager = (GridLayoutManager) getLayoutManager();
-            GridLayoutManager.LayoutParams layoutParams;
-            int orientation;
-            if (fixedViewContainer.getLayoutParams() instanceof GridLayoutManager.LayoutParams) {
-                layoutParams = (GridLayoutManager.LayoutParams) fixedViewContainer.getLayoutParams();
-                if (gridLayoutManager.getOrientation() == LinearLayoutManager.VERTICAL) {
-                    layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-                    layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                    orientation = LinearLayout.VERTICAL;
-                } else {
-                    layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-                    layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
-                    orientation = LinearLayout.HORIZONTAL;
-                }
-            } else {
-                if (gridLayoutManager.getOrientation() == LinearLayoutManager.VERTICAL) {
-                    layoutParams = new GridLayoutManager.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                    orientation = LinearLayout.VERTICAL;
-                } else {
-                    layoutParams = new GridLayoutManager.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                    orientation = LinearLayout.HORIZONTAL;
-                }
-            }
-            fixedViewContainer.setLayoutParams(layoutParams);
-            fixedViewContainer.setOrientation(orientation);
-        } else if (getLayoutManager() instanceof LinearLayoutManager) {
-            LinearLayoutManager linearLayoutManager = (LinearLayoutManager) getLayoutManager();
-            LayoutParams layoutParams;
-            int orientation;
-            if (fixedViewContainer.getLayoutParams() instanceof LayoutParams) {
-                layoutParams = (LayoutParams) fixedViewContainer.getLayoutParams();
-                if (linearLayoutManager.getOrientation() == LinearLayoutManager.VERTICAL) {
-                    layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-                    layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                    orientation = LinearLayout.VERTICAL;
-                } else {
-                    layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-                    layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
-                    orientation = LinearLayout.HORIZONTAL;
-                }
-            } else {
-                if (linearLayoutManager.getOrientation() == LinearLayoutManager.VERTICAL) {
-                    layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                    orientation = LinearLayout.VERTICAL;
-                } else {
-                    layoutParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                    orientation = LinearLayout.HORIZONTAL;
-                }
-            }
-            fixedViewContainer.setLayoutParams(layoutParams);
-            fixedViewContainer.setOrientation(orientation);
-        } else if (getLayoutManager() instanceof StaggeredGridLayoutManager) {
-            StaggeredGridLayoutManager staggeredGridLayoutManager = (StaggeredGridLayoutManager) getLayoutManager();
-            StaggeredGridLayoutManager.LayoutParams layoutParams;
-            int orientation;
-            if (fixedViewContainer.getLayoutParams() instanceof StaggeredGridLayoutManager.LayoutParams) {
-                layoutParams = (StaggeredGridLayoutManager.LayoutParams) fixedViewContainer.getLayoutParams();
-                if (staggeredGridLayoutManager.getOrientation() == StaggeredGridLayoutManager.VERTICAL) {
-                    layoutParams.width = ViewGroup.LayoutParams.MATCH_PARENT;
-                    layoutParams.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-                    orientation = LinearLayout.VERTICAL;
-                } else {
-                    layoutParams.width = ViewGroup.LayoutParams.WRAP_CONTENT;
-                    layoutParams.height = ViewGroup.LayoutParams.MATCH_PARENT;
-                    orientation = LinearLayout.HORIZONTAL;
-                }
-            } else {
-                if (staggeredGridLayoutManager.getOrientation() == StaggeredGridLayoutManager.VERTICAL) {
-                    layoutParams = new StaggeredGridLayoutManager.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                    orientation = LinearLayout.VERTICAL;
-                } else {
-                    layoutParams = new StaggeredGridLayoutManager.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT);
-                    orientation = LinearLayout.HORIZONTAL;
-                }
-            }
-            layoutParams.setFullSpan(true);
-            fixedViewContainer.setLayoutParams(layoutParams);
-            fixedViewContainer.setOrientation(orientation);
-        }
+        View view = footerViewList.remove(index);
+        proxyAdapter.notifyFooterRemoved(view, index);
     }
 
     private void inspectLayoutManager(LayoutManager layoutManager) {
