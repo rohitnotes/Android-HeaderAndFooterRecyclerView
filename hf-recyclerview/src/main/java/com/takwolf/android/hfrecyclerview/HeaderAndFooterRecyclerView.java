@@ -47,12 +47,12 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
 
     public void addHeaderView(@NonNull View view) {
         headerContainer.addView(view);
-        proxyAdapter.notifyHeaderInserted();
+        proxyAdapter.notifyHeaderAdded();
     }
 
     public void addHeaderView(@NonNull View view, int index) {
         headerContainer.addView(view, index);
-        proxyAdapter.notifyHeaderInserted();
+        proxyAdapter.notifyHeaderAdded();
     }
 
     public void removeHeaderView(@NonNull View view) {
@@ -76,12 +76,12 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
 
     public void addFooterView(@NonNull View view) {
         footerContainer.addView(view);
-        proxyAdapter.notifyFooterInserted();
+        proxyAdapter.notifyFooterAdded();
     }
 
     public void addFooterView(@NonNull View view, int index) {
         footerContainer.addView(view, index);
-        proxyAdapter.notifyFooterInserted();
+        proxyAdapter.notifyFooterAdded();
     }
 
     public void removeFooterView(@NonNull View view) {

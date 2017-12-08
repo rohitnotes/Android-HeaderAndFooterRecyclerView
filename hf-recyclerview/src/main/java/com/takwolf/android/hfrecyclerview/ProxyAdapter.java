@@ -70,7 +70,7 @@ public final class ProxyAdapter extends RecyclerView.Adapter {
         }
     }
 
-    void notifyHeaderInserted() {
+    void notifyHeaderAdded() {
         if (recyclerView.getHeaderViewCount() == 1) {
             notifyItemInserted(0);
         }
@@ -82,7 +82,7 @@ public final class ProxyAdapter extends RecyclerView.Adapter {
         }
     }
 
-    void notifyFooterInserted() {
+    void notifyFooterAdded() {
         if (recyclerView.getFooterViewCount() == 1) {
             notifyItemInserted(getItemCount() - 1);
         }
