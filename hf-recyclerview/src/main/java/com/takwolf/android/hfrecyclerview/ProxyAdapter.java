@@ -172,7 +172,6 @@ public final class ProxyAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
             case FixedViewHolder.VIEW_TYPE_HEADER:
-                return FixedViewHolder.create(parent.getContext());
             case FixedViewHolder.VIEW_TYPE_FOOTER:
                 return FixedViewHolder.create(parent.getContext());
             default:
