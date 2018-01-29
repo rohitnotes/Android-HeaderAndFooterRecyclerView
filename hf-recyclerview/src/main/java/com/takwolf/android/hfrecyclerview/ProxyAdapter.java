@@ -187,10 +187,10 @@ public final class ProxyAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder.getItemViewType() == FixedViewHolder.VIEW_TYPE_HEADER) {
             FixedViewHolder fixedViewHolder = FixedViewHolder.assertType(holder);
-            fixedViewHolder.onBind(recyclerView, recyclerView.getHeaderViewList());
+            fixedViewHolder.bind(recyclerView, recyclerView.getHeaderViewList());
         } else if (holder.getItemViewType() == FixedViewHolder.VIEW_TYPE_FOOTER) {
             FixedViewHolder fixedViewHolder = FixedViewHolder.assertType(holder);
-            fixedViewHolder.onBind(recyclerView, recyclerView.getFooterViewList());
+            fixedViewHolder.bind(recyclerView, recyclerView.getFooterViewList());
         } else if (adapter != null) {
             //noinspection unchecked
             adapter.onBindViewHolder(holder, position - getPositionOffset());
@@ -207,7 +207,7 @@ public final class ProxyAdapter extends RecyclerView.Adapter {
                 for (Object payload : payloads) {
                     if (payload instanceof FixedViewUpdateInfo) {
                         FixedViewUpdateInfo updateInfo = (FixedViewUpdateInfo) payload;
-                        fixedViewHolder.onBindWithUpdateInfo(recyclerView, updateInfo);
+                        fixedViewHolder.bindWithUpdateInfo(recyclerView, updateInfo);
                     }
                 }
             }

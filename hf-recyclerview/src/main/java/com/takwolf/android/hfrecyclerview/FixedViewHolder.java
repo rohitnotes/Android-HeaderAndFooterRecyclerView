@@ -132,7 +132,7 @@ public final class FixedViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
-    void onBind(@NonNull HeaderAndFooterRecyclerView recyclerView, @NonNull List<View> viewList) {
+    void bind(@NonNull HeaderAndFooterRecyclerView recyclerView, @NonNull List<View> viewList) {
         viewContainer.removeAllViews();
         adjustViewContainerLayoutParamsAndOrientation(recyclerView);
         for (View view : viewList) {
@@ -143,7 +143,7 @@ public final class FixedViewHolder extends RecyclerView.ViewHolder {
         }
     }
     
-    void onBindWithUpdateInfo(@NonNull HeaderAndFooterRecyclerView recyclerView, @NonNull FixedViewUpdateInfo updateInfo) {
+    void bindWithUpdateInfo(@NonNull HeaderAndFooterRecyclerView recyclerView, @NonNull FixedViewUpdateInfo updateInfo) {
         adjustViewContainerLayoutParamsAndOrientation(recyclerView);
         switch (updateInfo.getAction()) {
             case FixedViewUpdateInfo.ACTION_ADD:
