@@ -49,7 +49,7 @@ public class LinearVerticalAdapter extends RecyclerView.Adapter<LinearVerticalAd
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.onBind(this, position);
+        holder.bind(this, position);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -68,7 +68,7 @@ public class LinearVerticalAdapter extends RecyclerView.Adapter<LinearVerticalAd
             ButterKnife.bind(this, itemView);
         }
 
-        void onBind(@NonNull LinearVerticalAdapter adapter, int position) {
+        void bind(@NonNull LinearVerticalAdapter adapter, int position) {
             this.adapter = adapter;
             illust = adapter.getIllustList().get(position);
             GlideApp.with(activity).load(illust.getImage()).placeholder(R.drawable.image_placeholder).into(imgThumb);

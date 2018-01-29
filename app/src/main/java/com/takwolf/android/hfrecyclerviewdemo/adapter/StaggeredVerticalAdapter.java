@@ -49,7 +49,7 @@ public class StaggeredVerticalAdapter extends RecyclerView.Adapter<StaggeredVert
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.onBind(this, position);
+        holder.bind(this, position);
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -68,7 +68,7 @@ public class StaggeredVerticalAdapter extends RecyclerView.Adapter<StaggeredVert
             ButterKnife.bind(this, itemView);
         }
 
-        void onBind(@NonNull StaggeredVerticalAdapter adapter, int position) {
+        void bind(@NonNull StaggeredVerticalAdapter adapter, int position) {
             this.adapter = adapter;
             illust = adapter.getIllustList().get(position);
             GlideApp.with(activity).load(illust.getImage()).placeholder(R.drawable.image_placeholder).into(imgThumb);
