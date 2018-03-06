@@ -168,8 +168,9 @@ public final class ProxyAdapter extends RecyclerView.Adapter {
         }
     }
 
+    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         switch (viewType) {
             case FixedViewHolder.VIEW_TYPE_HEADER:
             case FixedViewHolder.VIEW_TYPE_FOOTER:
@@ -178,13 +179,13 @@ public final class ProxyAdapter extends RecyclerView.Adapter {
                 if (adapter != null) {
                     return adapter.onCreateViewHolder(parent, viewType);
                 } else {
-                    return null;
+                    throw new RuntimeException("Raw adapter has not been set.");
                 }
         }
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder.getItemViewType() == FixedViewHolder.VIEW_TYPE_HEADER) {
             FixedViewHolder fixedViewHolder = FixedViewHolder.assertType(holder);
             fixedViewHolder.bind(recyclerView, recyclerView.getHeaderViewList());
@@ -198,7 +199,7 @@ public final class ProxyAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position, List payloads) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position, @NonNull List payloads) {
         if (holder.getItemViewType() == FixedViewHolder.VIEW_TYPE_HEADER || holder.getItemViewType() == FixedViewHolder.VIEW_TYPE_FOOTER) {
             if (payloads.isEmpty()) {
                 onBindViewHolder(holder, position);
@@ -218,7 +219,7 @@ public final class ProxyAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onViewRecycled(RecyclerView.ViewHolder holder) {
+    public void onViewRecycled(@NonNull RecyclerView.ViewHolder holder) {
         if (adapter != null && holder.getItemViewType() != FixedViewHolder.VIEW_TYPE_HEADER && holder.getItemViewType() != FixedViewHolder.VIEW_TYPE_FOOTER) {
             //noinspection unchecked
             adapter.onViewRecycled(holder);
@@ -226,7 +227,7 @@ public final class ProxyAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public boolean onFailedToRecycleView(RecyclerView.ViewHolder holder) {
+    public boolean onFailedToRecycleView(@NonNull RecyclerView.ViewHolder holder) {
         //noinspection SimplifiableIfStatement
         if (adapter != null && holder.getItemViewType() != FixedViewHolder.VIEW_TYPE_HEADER && holder.getItemViewType() != FixedViewHolder.VIEW_TYPE_FOOTER) {
             //noinspection unchecked
@@ -237,7 +238,7 @@ public final class ProxyAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onViewAttachedToWindow(RecyclerView.ViewHolder holder) {
+    public void onViewAttachedToWindow(@NonNull RecyclerView.ViewHolder holder) {
         if (adapter != null && holder.getItemViewType() != FixedViewHolder.VIEW_TYPE_HEADER && holder.getItemViewType() != FixedViewHolder.VIEW_TYPE_FOOTER) {
             //noinspection unchecked
             adapter.onViewAttachedToWindow(holder);
@@ -245,7 +246,7 @@ public final class ProxyAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onViewDetachedFromWindow(RecyclerView.ViewHolder holder) {
+    public void onViewDetachedFromWindow(@NonNull RecyclerView.ViewHolder holder) {
         if (adapter != null && holder.getItemViewType() != FixedViewHolder.VIEW_TYPE_HEADER && holder.getItemViewType() != FixedViewHolder.VIEW_TYPE_FOOTER) {
             //noinspection unchecked
             adapter.onViewDetachedFromWindow(holder);
@@ -253,7 +254,7 @@ public final class ProxyAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
         if (this.recyclerView != recyclerView) {
             throw new RuntimeException("ProxyAdapter can not be attached to other RecyclerView.");
         }

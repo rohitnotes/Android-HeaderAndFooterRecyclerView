@@ -42,13 +42,14 @@ public class LinearVerticalAdapter extends RecyclerView.Adapter<LinearVerticalAd
         return illustList.size();
     }
 
+    @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(inflater.inflate(R.layout.item_linear_vertical, parent, false), activity);
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.bind(this, position);
     }
 
