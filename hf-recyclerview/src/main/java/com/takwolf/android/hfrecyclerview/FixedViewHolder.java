@@ -142,7 +142,7 @@ public final class FixedViewHolder extends RecyclerView.ViewHolder {
             viewContainer.addView(view);
         }
     }
-    
+
     void bindWithUpdateInfo(@NonNull HeaderAndFooterRecyclerView recyclerView, @NonNull FixedViewUpdateInfo updateInfo) {
         adjustViewContainerLayoutParamsAndOrientation(recyclerView);
         switch (updateInfo.getAction()) {
