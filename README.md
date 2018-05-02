@@ -14,6 +14,8 @@ Let RecyclerView support add HeaderView and FooterView.
 
 - 支持 LinearLayoutManager、GridLayoutManager 和 StaggeredGridLayoutManager 三种布局管理器的横向和纵向布局。
 
+- 支持多 HeaderView 和 FooterView。
+
 - 支持动态添加删除 HeaderView 和 FooterView。
 
 - 支持动态切换 Adapter 和 LayoutManager。
