@@ -204,10 +204,10 @@ public final class ProxyAdapter extends RecyclerView.Adapter {
             if (payloads.isEmpty()) {
                 onBindViewHolder(holder, position);
             } else {
-                FixedViewHolder fixedViewHolder = FixedViewHolder.assertType(holder);
                 for (Object payload : payloads) {
                     if (payload instanceof FixedViewUpdateInfo) {
                         FixedViewUpdateInfo updateInfo = (FixedViewUpdateInfo) payload;
+                        FixedViewHolder fixedViewHolder = FixedViewHolder.assertType(holder);
                         fixedViewHolder.bindWithUpdateInfo(recyclerView, updateInfo);
                     }
                 }
