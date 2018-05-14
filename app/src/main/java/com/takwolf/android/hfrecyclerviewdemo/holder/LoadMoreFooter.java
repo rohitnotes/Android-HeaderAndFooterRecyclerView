@@ -1,4 +1,4 @@
-package com.takwolf.android.hfrecyclerviewdemo.viewholder;
+package com.takwolf.android.hfrecyclerviewdemo.holder;
 
 import android.content.Context;
 import android.support.annotation.IntDef;

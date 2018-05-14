@@ -1,4 +1,4 @@
-package com.takwolf.android.hfrecyclerviewdemo.viewholder;
+package com.takwolf.android.hfrecyclerviewdemo.holder;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
@@ -14,25 +14,25 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnLongClick;
 
-public class VerticalHeader {
+public class VerticalFooter {
 
     @BindView(R.id.tv_name)
     TextView tvName;
 
     private final HeaderAndFooterRecyclerView recyclerView;
-    private final View headerView;
+    private final View footerView;
 
-    public VerticalHeader(@NonNull Activity activity, @NonNull HeaderAndFooterRecyclerView recyclerView) {
+    public VerticalFooter(@NonNull Activity activity, @NonNull HeaderAndFooterRecyclerView recyclerView) {
         this.recyclerView = recyclerView;
-        headerView = LayoutInflater.from(activity).inflate(R.layout.header_vertical, recyclerView.getHeaderContainer(), false);
-        recyclerView.addHeaderView(headerView);
-        ButterKnife.bind(this, headerView);
+        footerView = LayoutInflater.from(activity).inflate(R.layout.footer_vertical, recyclerView.getFooterContainer(), false);
+        recyclerView.addFooterView(footerView);
+        ButterKnife.bind(this, footerView);
         tvName.setBackgroundColor(RandomUtils.randomColor());
     }
 
     @OnLongClick(R.id.btn_item)
     boolean onBtnItemLongClick() {
-        recyclerView.removeHeaderView(headerView);
+        recyclerView.removeFooterView(footerView);
         return true;
     }
 

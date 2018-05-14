@@ -9,11 +9,11 @@ import android.support.v7.widget.Toolbar;
 import com.takwolf.android.hfrecyclerview.HeaderAndFooterRecyclerView;
 import com.takwolf.android.hfrecyclerviewdemo.R;
 import com.takwolf.android.hfrecyclerviewdemo.adapter.StaggeredHorizontalAdapter;
+import com.takwolf.android.hfrecyclerviewdemo.holder.HorizontalFooter;
+import com.takwolf.android.hfrecyclerviewdemo.holder.HorizontalHeader;
+import com.takwolf.android.hfrecyclerviewdemo.holder.OptionViewHolder;
 import com.takwolf.android.hfrecyclerviewdemo.listener.NavigationFinishClickListener;
 import com.takwolf.android.hfrecyclerviewdemo.model.ApiClient;
-import com.takwolf.android.hfrecyclerviewdemo.viewholder.HorizontalFooter;
-import com.takwolf.android.hfrecyclerviewdemo.viewholder.HorizontalHeader;
-import com.takwolf.android.hfrecyclerviewdemo.viewholder.OptionViewHolder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

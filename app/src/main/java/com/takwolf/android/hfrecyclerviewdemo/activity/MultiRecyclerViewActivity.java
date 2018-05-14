@@ -10,10 +10,10 @@ import android.support.v7.widget.Toolbar;
 import com.takwolf.android.hfrecyclerview.HeaderAndFooterRecyclerView;
 import com.takwolf.android.hfrecyclerviewdemo.R;
 import com.takwolf.android.hfrecyclerviewdemo.adapter.LinearVerticalAdapter;
+import com.takwolf.android.hfrecyclerviewdemo.holder.VerticalFooter;
+import com.takwolf.android.hfrecyclerviewdemo.holder.VerticalHeader;
 import com.takwolf.android.hfrecyclerviewdemo.listener.NavigationFinishClickListener;
 import com.takwolf.android.hfrecyclerviewdemo.model.ApiClient;
-import com.takwolf.android.hfrecyclerviewdemo.viewholder.VerticalFooter;
-import com.takwolf.android.hfrecyclerviewdemo.viewholder.VerticalHeader;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
