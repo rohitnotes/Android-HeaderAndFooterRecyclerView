@@ -54,6 +54,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, MultiRecyclerViewActivity.class));
     }
 
+    @OnClick(R.id.btn_view_pager_header)
+    void onBtnViewPagerHeaderClick() {
+        startActivity(new Intent(this, ViewPagerHeaderActivity.class));
+    }
+
     @OnClick(R.id.btn_refresh_and_load_more)
     void onBtnRefreshAndLoadMoreClick() {
         startActivity(new Intent(this, RefreshAndLoadMoreActivity.class));
