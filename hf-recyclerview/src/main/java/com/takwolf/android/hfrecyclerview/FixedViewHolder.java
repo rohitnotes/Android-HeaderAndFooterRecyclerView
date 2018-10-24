@@ -18,7 +18,7 @@ import java.util.List;
 public final class FixedViewHolder extends RecyclerView.ViewHolder {
 
     public static final int VIEW_TYPE_HEADER = Integer.MIN_VALUE;
-    public static final int VIEW_TYPE_FOOTER = Integer.MIN_VALUE + 1;
+    public static final int VIEW_TYPE_FOOTER = VIEW_TYPE_HEADER + 1;
 
     @IntDef({VIEW_TYPE_HEADER, VIEW_TYPE_FOOTER})
     @Retention(RetentionPolicy.SOURCE)
