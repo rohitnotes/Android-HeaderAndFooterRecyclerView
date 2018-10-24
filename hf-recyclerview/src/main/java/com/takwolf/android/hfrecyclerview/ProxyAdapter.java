@@ -10,8 +10,10 @@ import java.util.List;
 
 public final class ProxyAdapter extends RecyclerView.Adapter {
 
+    @NonNull
     private final HeaderAndFooterRecyclerView recyclerView;
 
+    @Nullable
     private RecyclerView.Adapter adapter;
 
     private final RecyclerView.AdapterDataObserver adapterDataObserver = new RecyclerView.AdapterDataObserver() {
@@ -56,11 +58,12 @@ public final class ProxyAdapter extends RecyclerView.Adapter {
         this.recyclerView = recyclerView;
     }
 
+    @Nullable
     public RecyclerView.Adapter getAdapter() {
         return adapter;
     }
 
-    void setAdapter(RecyclerView.Adapter adapter) {
+    void setAdapter(@Nullable RecyclerView.Adapter adapter) {
         if (this.adapter != null) {
             this.adapter.unregisterAdapterDataObserver(adapterDataObserver);
             this.adapter.onDetachedFromRecyclerView(recyclerView);

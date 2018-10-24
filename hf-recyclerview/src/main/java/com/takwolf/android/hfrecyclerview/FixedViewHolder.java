@@ -28,7 +28,7 @@ public final class FixedViewHolder extends RecyclerView.ViewHolder {
         return new FixedViewHolder(new LinearLayout(context));
     }
 
-    static FixedViewHolder assertType(RecyclerView.ViewHolder holder) {
+    static FixedViewHolder assertType(@NonNull RecyclerView.ViewHolder holder) {
         if (holder instanceof FixedViewHolder) {
             return (FixedViewHolder) holder;
         } else {
@@ -36,6 +36,7 @@ public final class FixedViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
+    @NonNull
     private final LinearLayout viewContainer;
 
     private FixedViewHolder(@NonNull LinearLayout viewContainer) {

@@ -1,11 +1,15 @@
 package com.takwolf.android.hfrecyclerview;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 
 final class FixedViewSpanSizeLookup extends GridLayoutManager.SpanSizeLookup {
 
+    @Nullable
     private GridLayoutManager gridLayoutManager;
+
+    @Nullable
     private ProxyAdapter proxyAdapter;
 
     void attach(@NonNull GridLayoutManager gridLayoutManager, @NonNull ProxyAdapter proxyAdapter) {

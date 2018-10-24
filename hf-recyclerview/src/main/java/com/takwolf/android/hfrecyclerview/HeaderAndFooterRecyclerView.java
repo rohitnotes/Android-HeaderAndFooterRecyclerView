@@ -17,6 +17,8 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
 
     private final List<View> headerViewList = new ArrayList<>();
     private final List<View> footerViewList = new ArrayList<>();
+
+    @NonNull
     private final ProxyAdapter proxyAdapter;
 
     public HeaderAndFooterRecyclerView(@NonNull Context context) {
@@ -34,6 +36,7 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
         super.setAdapter(proxyAdapter);
     }
 
+    @NonNull
     private LinearLayout getFixedViewContainer(@FixedViewHolder.ViewType int viewType) {
         ViewHolder holder = getRecycledViewPool().getRecycledView(viewType);
         if (holder == null) {
@@ -111,7 +114,7 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
         proxyAdapter.notifyFooterRemoved(view, index);
     }
 
-    private void inspectLayoutManager(LayoutManager layoutManager) {
+    private void inspectLayoutManager(@Nullable LayoutManager layoutManager) {
         if (layoutManager instanceof GridLayoutManager) {
             GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
             GridLayoutManager.SpanSizeLookup spanSizeLookup = gridLayoutManager.getSpanSizeLookup();
@@ -128,7 +131,7 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
         }
     }
 
-    private void recoverLayoutManager(LayoutManager layoutManager) {
+    private void recoverLayoutManager(@Nullable LayoutManager layoutManager) {
         if (layoutManager instanceof GridLayoutManager) {
             GridLayoutManager gridLayoutManager = (GridLayoutManager) layoutManager;
             GridLayoutManager.SpanSizeLookup spanSizeLookup = gridLayoutManager.getSpanSizeLookup();
@@ -140,7 +143,7 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
     }
 
     @Override
-    public void setLayoutManager(LayoutManager layoutManager) {
+    public void setLayoutManager(@Nullable LayoutManager layoutManager) {
         LayoutManager oldLayoutManager = getLayoutManager();
         inspectLayoutManager(layoutManager);
         super.setLayoutManager(layoutManager);
@@ -152,13 +155,14 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
         return proxyAdapter;
     }
 
+    @Nullable
     @Override
     public Adapter getAdapter() {
         return proxyAdapter.getAdapter();
     }
 
     @Override
-    public void setAdapter(Adapter adapter) {
+    public void setAdapter(@Nullable Adapter adapter) {
         super.setAdapter(null);
         if (adapter != null) {
             proxyAdapter.setHasStableIds(adapter.hasStableIds());
@@ -170,7 +174,7 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
     }
 
     @Override
-    public void swapAdapter(Adapter adapter, boolean removeAndRecycleExistingViews) {
+    public void swapAdapter(@Nullable Adapter adapter, boolean removeAndRecycleExistingViews) {
         super.swapAdapter(null, removeAndRecycleExistingViews);
         if (adapter != null) {
             proxyAdapter.setHasStableIds(adapter.hasStableIds());
