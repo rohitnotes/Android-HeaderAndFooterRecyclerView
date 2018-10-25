@@ -17,9 +17,7 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
 
     private final List<View> headerViewList = new ArrayList<>();
     private final List<View> footerViewList = new ArrayList<>();
-
-    @NonNull
-    private final ProxyAdapter proxyAdapter;
+    private final ProxyAdapter proxyAdapter = new ProxyAdapter(this);
 
     public HeaderAndFooterRecyclerView(@NonNull Context context) {
         this(context, null);
@@ -32,7 +30,6 @@ public class HeaderAndFooterRecyclerView extends RecyclerView {
     public HeaderAndFooterRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyle) {
         super(context, attrs, defStyle);
         inspectLayoutManager(getLayoutManager());
-        proxyAdapter = new ProxyAdapter(this);
         super.setAdapter(proxyAdapter);
     }
 
