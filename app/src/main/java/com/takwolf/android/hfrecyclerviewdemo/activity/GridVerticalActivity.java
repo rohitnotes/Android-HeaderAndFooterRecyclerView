@@ -1,10 +1,6 @@
 package com.takwolf.android.hfrecyclerviewdemo.activity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.Toolbar;
 
 import com.takwolf.android.hfrecyclerview.HeaderAndFooterRecyclerView;
 import com.takwolf.android.hfrecyclerviewdemo.R;
@@ -16,6 +12,11 @@ import com.takwolf.android.hfrecyclerviewdemo.listener.CustomSpanSizeLookup;
 import com.takwolf.android.hfrecyclerviewdemo.listener.NavigationFinishClickListener;
 import com.takwolf.android.hfrecyclerviewdemo.model.ApiClient;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -36,7 +37,7 @@ public class GridVerticalActivity extends AppCompatActivity {
         toolbar.setTitle("Grid Vertical");
         toolbar.setNavigationOnClickListener(new NavigationFinishClickListener(this));
 
-        new OptionViewHolder(this, recyclerView, OptionViewHolder.ORIENTATION_VERTICAL);
+        new OptionViewHolder(this, recyclerView, RecyclerView.VERTICAL);
 
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         layoutManager.setSpanSizeLookup(new CustomSpanSizeLookup(layoutManager, recyclerView.getProxyAdapter()));

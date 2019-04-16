@@ -1,12 +1,13 @@
 package com.takwolf.android.hfrecyclerview;
 
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.List;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 
 public final class ProxyAdapter extends RecyclerView.Adapter {
 
@@ -29,7 +30,7 @@ public final class ProxyAdapter extends RecyclerView.Adapter {
         }
 
         @Override
-        public void onItemRangeChanged(int positionStart, int itemCount, Object payload) {
+        public void onItemRangeChanged(int positionStart, int itemCount, @Nullable Object payload) {
             notifyItemRangeChanged(positionStart + getPositionOffset(), itemCount, payload);
         }
 

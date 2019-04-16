@@ -1,10 +1,6 @@
 package com.takwolf.android.hfrecyclerviewdemo.activity;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.support.v7.widget.Toolbar;
 
 import com.takwolf.android.hfrecyclerview.HeaderAndFooterRecyclerView;
 import com.takwolf.android.hfrecyclerviewdemo.R;
@@ -15,6 +11,11 @@ import com.takwolf.android.hfrecyclerviewdemo.holder.OptionViewHolder;
 import com.takwolf.android.hfrecyclerviewdemo.listener.NavigationFinishClickListener;
 import com.takwolf.android.hfrecyclerviewdemo.model.ApiClient;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -35,9 +36,9 @@ public class StaggeredHorizontalActivity extends AppCompatActivity {
         toolbar.setTitle("Staggered Horizontal");
         toolbar.setNavigationOnClickListener(new NavigationFinishClickListener(this));
 
-        new OptionViewHolder(this, recyclerView, OptionViewHolder.ORIENTATION_HORIZONTAL);
+        new OptionViewHolder(this, recyclerView, RecyclerView.HORIZONTAL);
 
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.HORIZONTAL);
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(3, RecyclerView.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);
 
         new HorizontalHeader(this, recyclerView);

@@ -1,11 +1,11 @@
 package com.takwolf.android.hfrecyclerviewdemo.listener;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.GridLayoutManager;
-
 import com.takwolf.android.hfrecyclerview.FixedViewHolder;
 import com.takwolf.android.hfrecyclerview.ProxyAdapter;
 import com.takwolf.android.hfrecyclerviewdemo.adapter.GridVerticalAdapter;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 public final class CustomSpanSizeLookup extends GridLayoutManager.SpanSizeLookup {
 
