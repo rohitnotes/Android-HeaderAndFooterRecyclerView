@@ -57,32 +57,22 @@ public class RefreshAndLoadMoreActivity extends AppCompatActivity implements Swi
 
     @Override
     public void onRefresh() {
-        HandlerUtils.handler.postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                adapter.getIllustList().clear();
-                adapter.getIllustList().addAll(ApiClient.buildIllustList());
-                adapter.notifyDataSetChanged();
-                refreshLayout.setRefreshing(false);
-                loadMoreFooter.setState(LoadMoreFooter.STATE_ENDLESS);
-            }
-
+        HandlerUtils.handler.postDelayed(() -> {
+            adapter.getIllustList().clear();
+            adapter.getIllustList().addAll(ApiClient.buildIllustList());
+            adapter.notifyDataSetChanged();
+            refreshLayout.setRefreshing(false);
+            loadMoreFooter.setState(LoadMoreFooter.STATE_ENDLESS);
         }, 1000);
     }
 
     @Override
     public void onLoadMore() {
-        HandlerUtils.handler.postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                int startPosition = adapter.getItemCount();
-                adapter.getIllustList().addAll(ApiClient.buildIllustList());
-                adapter.notifyItemRangeInserted(startPosition, ApiClient.PAGE_SIZE);
-                loadMoreFooter.setState(adapter.getItemCount() >= 200 ? LoadMoreFooter.STATE_FINISHED : LoadMoreFooter.STATE_ENDLESS);
-            }
-
+        HandlerUtils.handler.postDelayed(() -> {
+            int startPosition = adapter.getItemCount();
+            adapter.getIllustList().addAll(ApiClient.buildIllustList());
+            adapter.notifyItemRangeInserted(startPosition, ApiClient.PAGE_SIZE);
+            loadMoreFooter.setState(adapter.getItemCount() >= 200 ? LoadMoreFooter.STATE_FINISHED : LoadMoreFooter.STATE_ENDLESS);
         }, 1000);
     }
 
