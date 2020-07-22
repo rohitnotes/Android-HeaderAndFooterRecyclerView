@@ -24,7 +24,6 @@ public class ViewPagerHeader {
         ButterKnife.bind(this, headerView);
 
         NumberPagerAdapter adapter = new NumberPagerAdapter(activity, 10);
-        viewPager.setOffscreenPageLimit(adapter.getCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(onPageChangeListener);
     }

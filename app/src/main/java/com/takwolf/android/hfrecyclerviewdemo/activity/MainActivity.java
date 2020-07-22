@@ -59,6 +59,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, ViewPagerHeaderActivity.class));
     }
 
+    @OnClick(R.id.btn_view_pager_2_header)
+    void onBtnViewPager2HeaderClick() {
+        startActivity(new Intent(this, ViewPager2HeaderActivity.class));
+    }
+
     @OnClick(R.id.btn_refresh_and_load_more)
     void onBtnRefreshAndLoadMoreClick() {
         startActivity(new Intent(this, RefreshAndLoadMoreActivity.class));
